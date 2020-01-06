@@ -179,13 +179,14 @@ void TMR1_DefaultInterruptHandler(void){
     // or set custom function using TMR1_SetInterruptHandler()
     DEBUG_INT_TIM1_Toggle();
     
-    if (HALL_INPUT_GetValue() != Port.SENS) {
+    if (HALL_INPUT_GetValue() == Port.SENS) {
         countHALL = 0;
-    }
-    
-    if (countHALL == countHallEnought) {
-        Port.SENS = !Port.SENS;
-        countHALL = 0;
+    } else {
+        countHALL++;        
+        if (countHALL == countHallEnought) {
+            Port.SENS = !Port.SENS;
+            countHALL = 0;
+        }
     }
     
     if (Port.SENS) {
@@ -202,6 +203,7 @@ void TMR1_DefaultInterruptHandler(void){
             } 
             //Сохраняем счетчик оборотов
             lastSectionCount = sectorCount;
+            sectorCount = 0;
             //Обновляем сотояние нахождения шторки
             Flag.lastState = 1;
             //Сбрасываем флаг переполнения
@@ -220,13 +222,19 @@ void TMR1_DefaultInterruptHandler(void){
                 return;
             } else {
                 sectorCount++; //Увеличиваем значение счетчика срабатывания таймера
+                
                 if (sectorCount >= 239) { //Проверяем счетчик на перполнение
                     Flag.overflowCount = 1;
-                } else if (!sparkTime) { //Проверяем счетчик намомент искрообразования, если он не равен нулю (т.е. при запуске))
-                    return; //Происходит запуск, искра бутет образована при выходе шторки из датчика
                 }
+                
+                if (!sparkTime) { //Проверяем счетчик на момент искрообразования, если он не равен нулю (т.е. при запуске))
+                    return; //Происходит запуск, искра будет образована при выходе шторки из датчика
+                }
+                
                 if (sectorCount == sparkTime) {//Если кол-во отсчетов с начала захода шторки в датчик совпадает с расчетным, то инициализируем искру
+                    IGN_BLOCK_OUT_SetLow();
                 }
+                
                 return;
             }
         }
