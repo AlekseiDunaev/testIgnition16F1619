@@ -53,7 +53,7 @@ void SYSTEM_Initialize(void)
     OSCILLATOR_Initialize();
     SPI_Initialize();
     TMR1_Initialize();
-    SCREEN_Initialize();
+    //SCREEN_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)

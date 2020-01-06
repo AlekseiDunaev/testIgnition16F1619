@@ -1120,9 +1120,9 @@ void main(void)
         //shiftIgn = shiftIgnMassive[shiftIgnCount];
 
         //readEmpty = SPI_Exchange8bit(SPI_DEBUG_SIMBOL); // without redEmpty compiling too    
-        SCREEN_Fill(00);
-        SCREEN_DrawBox(50, 50, 55, 55, 1100);
-        SCREEN_DrawPixel(150, 150, 1100);
+        //SCREEN_Fill(00);
+        //SCREEN_DrawBox(50, 50, 55, 55, 1100);
+        //SCREEN_DrawPixel(150, 150, 1100);
         //__delay_ms(1000);
     
     }

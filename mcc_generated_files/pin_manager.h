@@ -105,25 +105,25 @@
 #define SPI_SDO_SetAnalogMode()      do { ANSELAbits.ANSA1 = 1; } while(0)
 #define SPI_SDO_SetDigitalMode()     do { ANSELAbits.ANSA1 = 0; } while(0)
 
-// get/set LED_SHADOW aliases
-#define LED_SHADOW_TRIS                 TRISAbits.TRISA2
-#define LED_SHADOW_LAT                  LATAbits.LATA2
-#define LED_SHADOW_PORT                 PORTAbits.RA2
-#define LED_SHADOW_WPU                  WPUAbits.WPUA2
-#define LED_SHADOW_OD                   ODCONAbits.ODA2
-#define LED_SHADOW_ANS                  ANSELAbits.ANSA2
-#define LED_SHADOW_SetHigh()            do { LATAbits.LATA2 = 1; } while(0)
-#define LED_SHADOW_SetLow()             do { LATAbits.LATA2 = 0; } while(0)
-#define LED_SHADOW_Toggle()             do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0)
-#define LED_SHADOW_GetValue()           PORTAbits.RA2
-#define LED_SHADOW_SetDigitalInput()    do { TRISAbits.TRISA2 = 1; } while(0)
-#define LED_SHADOW_SetDigitalOutput()   do { TRISAbits.TRISA2 = 0; } while(0)
-#define LED_SHADOW_SetPullup()          do { WPUAbits.WPUA2 = 1; } while(0)
-#define LED_SHADOW_ResetPullup()        do { WPUAbits.WPUA2 = 0; } while(0)
-#define LED_SHADOW_SetPushPull()        do { ODCONAbits.ODA2 = 0; } while(0)
-#define LED_SHADOW_SetOpenDrain()       do { ODCONAbits.ODA2 = 1; } while(0)
-#define LED_SHADOW_SetAnalogMode()      do { ANSELAbits.ANSA2 = 1; } while(0)
-#define LED_SHADOW_SetDigitalMode()     do { ANSELAbits.ANSA2 = 0; } while(0)
+// get/set SCREEN_RESET aliases
+#define SCREEN_RESET_TRIS                 TRISAbits.TRISA2
+#define SCREEN_RESET_LAT                  LATAbits.LATA2
+#define SCREEN_RESET_PORT                 PORTAbits.RA2
+#define SCREEN_RESET_WPU                  WPUAbits.WPUA2
+#define SCREEN_RESET_OD                   ODCONAbits.ODA2
+#define SCREEN_RESET_ANS                  ANSELAbits.ANSA2
+#define SCREEN_RESET_SetHigh()            do { LATAbits.LATA2 = 1; } while(0)
+#define SCREEN_RESET_SetLow()             do { LATAbits.LATA2 = 0; } while(0)
+#define SCREEN_RESET_Toggle()             do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0)
+#define SCREEN_RESET_GetValue()           PORTAbits.RA2
+#define SCREEN_RESET_SetDigitalInput()    do { TRISAbits.TRISA2 = 1; } while(0)
+#define SCREEN_RESET_SetDigitalOutput()   do { TRISAbits.TRISA2 = 0; } while(0)
+#define SCREEN_RESET_SetPullup()          do { WPUAbits.WPUA2 = 1; } while(0)
+#define SCREEN_RESET_ResetPullup()        do { WPUAbits.WPUA2 = 0; } while(0)
+#define SCREEN_RESET_SetPushPull()        do { ODCONAbits.ODA2 = 0; } while(0)
+#define SCREEN_RESET_SetOpenDrain()       do { ODCONAbits.ODA2 = 1; } while(0)
+#define SCREEN_RESET_SetAnalogMode()      do { ANSELAbits.ANSA2 = 1; } while(0)
+#define SCREEN_RESET_SetDigitalMode()     do { ANSELAbits.ANSA2 = 0; } while(0)
 
 // get/set FUNC2_IN aliases
 #define FUNC2_IN_TRIS                 TRISBbits.TRISB4
@@ -184,6 +184,26 @@
 #define SELECT2_IN_SetOpenDrain()       do { ODCONBbits.ODB6 = 1; } while(0)
 #define SELECT2_IN_SetAnalogMode()      do { ANSELBbits.ANSB6 = 1; } while(0)
 #define SELECT2_IN_SetDigitalMode()     do { ANSELBbits.ANSB6 = 0; } while(0)
+
+// get/set DEBUG_INT_TIM1 aliases
+#define DEBUG_INT_TIM1_TRIS                 TRISBbits.TRISB7
+#define DEBUG_INT_TIM1_LAT                  LATBbits.LATB7
+#define DEBUG_INT_TIM1_PORT                 PORTBbits.RB7
+#define DEBUG_INT_TIM1_WPU                  WPUBbits.WPUB7
+#define DEBUG_INT_TIM1_OD                   ODCONBbits.ODB7
+#define DEBUG_INT_TIM1_ANS                  ANSELBbits.ANSB7
+#define DEBUG_INT_TIM1_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
+#define DEBUG_INT_TIM1_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
+#define DEBUG_INT_TIM1_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
+#define DEBUG_INT_TIM1_GetValue()           PORTBbits.RB7
+#define DEBUG_INT_TIM1_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
+#define DEBUG_INT_TIM1_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
+#define DEBUG_INT_TIM1_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
+#define DEBUG_INT_TIM1_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
+#define DEBUG_INT_TIM1_SetPushPull()        do { ODCONBbits.ODB7 = 0; } while(0)
+#define DEBUG_INT_TIM1_SetOpenDrain()       do { ODCONBbits.ODB7 = 1; } while(0)
+#define DEBUG_INT_TIM1_SetAnalogMode()      do { ANSELBbits.ANSB7 = 1; } while(0)
+#define DEBUG_INT_TIM1_SetDigitalMode()     do { ANSELBbits.ANSB7 = 0; } while(0)
 
 // get/set SPI_DS aliases
 #define SPI_DS_TRIS                 TRISCbits.TRISC0
@@ -246,41 +266,21 @@
 #define FUNC1_IN_SetDigitalMode()     do { ANSELCbits.ANSC2 = 0; } while(0)
 
 // get/set IGN_BLOCK_OUT aliases
-#define IGN_BLOCK_OUT_TRIS                 TRISCbits.TRISC3
-#define IGN_BLOCK_OUT_LAT                  LATCbits.LATC3
-#define IGN_BLOCK_OUT_PORT                 PORTCbits.RC3
-#define IGN_BLOCK_OUT_WPU                  WPUCbits.WPUC3
-#define IGN_BLOCK_OUT_OD                   ODCONCbits.ODC3
-#define IGN_BLOCK_OUT_ANS                  ANSELCbits.ANSC3
-#define IGN_BLOCK_OUT_SetHigh()            do { LATCbits.LATC3 = 1; } while(0)
-#define IGN_BLOCK_OUT_SetLow()             do { LATCbits.LATC3 = 0; } while(0)
-#define IGN_BLOCK_OUT_Toggle()             do { LATCbits.LATC3 = ~LATCbits.LATC3; } while(0)
-#define IGN_BLOCK_OUT_GetValue()           PORTCbits.RC3
-#define IGN_BLOCK_OUT_SetDigitalInput()    do { TRISCbits.TRISC3 = 1; } while(0)
-#define IGN_BLOCK_OUT_SetDigitalOutput()   do { TRISCbits.TRISC3 = 0; } while(0)
-#define IGN_BLOCK_OUT_SetPullup()          do { WPUCbits.WPUC3 = 1; } while(0)
-#define IGN_BLOCK_OUT_ResetPullup()        do { WPUCbits.WPUC3 = 0; } while(0)
-#define IGN_BLOCK_OUT_SetPushPull()        do { ODCONCbits.ODC3 = 0; } while(0)
-#define IGN_BLOCK_OUT_SetOpenDrain()       do { ODCONCbits.ODC3 = 1; } while(0)
-#define IGN_BLOCK_OUT_SetAnalogMode()      do { ANSELCbits.ANSC3 = 1; } while(0)
-#define IGN_BLOCK_OUT_SetDigitalMode()     do { ANSELCbits.ANSC3 = 0; } while(0)
-
-// get/set HALL_INPUT aliases
-#define HALL_INPUT_TRIS                 TRISCbits.TRISC4
-#define HALL_INPUT_LAT                  LATCbits.LATC4
-#define HALL_INPUT_PORT                 PORTCbits.RC4
-#define HALL_INPUT_WPU                  WPUCbits.WPUC4
-#define HALL_INPUT_OD                   ODCONCbits.ODC4
-#define HALL_INPUT_SetHigh()            do { LATCbits.LATC4 = 1; } while(0)
-#define HALL_INPUT_SetLow()             do { LATCbits.LATC4 = 0; } while(0)
-#define HALL_INPUT_Toggle()             do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0)
-#define HALL_INPUT_GetValue()           PORTCbits.RC4
-#define HALL_INPUT_SetDigitalInput()    do { TRISCbits.TRISC4 = 1; } while(0)
-#define HALL_INPUT_SetDigitalOutput()   do { TRISCbits.TRISC4 = 0; } while(0)
-#define HALL_INPUT_SetPullup()          do { WPUCbits.WPUC4 = 1; } while(0)
-#define HALL_INPUT_ResetPullup()        do { WPUCbits.WPUC4 = 0; } while(0)
-#define HALL_INPUT_SetPushPull()        do { ODCONCbits.ODC4 = 0; } while(0)
-#define HALL_INPUT_SetOpenDrain()       do { ODCONCbits.ODC4 = 1; } while(0)
+#define IGN_BLOCK_OUT_TRIS                 TRISCbits.TRISC4
+#define IGN_BLOCK_OUT_LAT                  LATCbits.LATC4
+#define IGN_BLOCK_OUT_PORT                 PORTCbits.RC4
+#define IGN_BLOCK_OUT_WPU                  WPUCbits.WPUC4
+#define IGN_BLOCK_OUT_OD                   ODCONCbits.ODC4
+#define IGN_BLOCK_OUT_SetHigh()            do { LATCbits.LATC4 = 1; } while(0)
+#define IGN_BLOCK_OUT_SetLow()             do { LATCbits.LATC4 = 0; } while(0)
+#define IGN_BLOCK_OUT_Toggle()             do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0)
+#define IGN_BLOCK_OUT_GetValue()           PORTCbits.RC4
+#define IGN_BLOCK_OUT_SetDigitalInput()    do { TRISCbits.TRISC4 = 1; } while(0)
+#define IGN_BLOCK_OUT_SetDigitalOutput()   do { TRISCbits.TRISC4 = 0; } while(0)
+#define IGN_BLOCK_OUT_SetPullup()          do { WPUCbits.WPUC4 = 1; } while(0)
+#define IGN_BLOCK_OUT_ResetPullup()        do { WPUCbits.WPUC4 = 0; } while(0)
+#define IGN_BLOCK_OUT_SetPushPull()        do { ODCONCbits.ODC4 = 0; } while(0)
+#define IGN_BLOCK_OUT_SetOpenDrain()       do { ODCONCbits.ODC4 = 1; } while(0)
 
 // get/set LED_DEBUG aliases
 #define LED_DEBUG_TRIS                 TRISCbits.TRISC5
@@ -299,45 +299,45 @@
 #define LED_DEBUG_SetPushPull()        do { ODCONCbits.ODC5 = 0; } while(0)
 #define LED_DEBUG_SetOpenDrain()       do { ODCONCbits.ODC5 = 1; } while(0)
 
-// get/set SCREEN_RESET aliases
-#define SCREEN_RESET_TRIS                 TRISCbits.TRISC6
-#define SCREEN_RESET_LAT                  LATCbits.LATC6
-#define SCREEN_RESET_PORT                 PORTCbits.RC6
-#define SCREEN_RESET_WPU                  WPUCbits.WPUC6
-#define SCREEN_RESET_OD                   ODCONCbits.ODC6
-#define SCREEN_RESET_ANS                  ANSELCbits.ANSC6
-#define SCREEN_RESET_SetHigh()            do { LATCbits.LATC6 = 1; } while(0)
-#define SCREEN_RESET_SetLow()             do { LATCbits.LATC6 = 0; } while(0)
-#define SCREEN_RESET_Toggle()             do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0)
-#define SCREEN_RESET_GetValue()           PORTCbits.RC6
-#define SCREEN_RESET_SetDigitalInput()    do { TRISCbits.TRISC6 = 1; } while(0)
-#define SCREEN_RESET_SetDigitalOutput()   do { TRISCbits.TRISC6 = 0; } while(0)
-#define SCREEN_RESET_SetPullup()          do { WPUCbits.WPUC6 = 1; } while(0)
-#define SCREEN_RESET_ResetPullup()        do { WPUCbits.WPUC6 = 0; } while(0)
-#define SCREEN_RESET_SetPushPull()        do { ODCONCbits.ODC6 = 0; } while(0)
-#define SCREEN_RESET_SetOpenDrain()       do { ODCONCbits.ODC6 = 1; } while(0)
-#define SCREEN_RESET_SetAnalogMode()      do { ANSELCbits.ANSC6 = 1; } while(0)
-#define SCREEN_RESET_SetDigitalMode()     do { ANSELCbits.ANSC6 = 0; } while(0)
+// get/set LED_SHADOW aliases
+#define LED_SHADOW_TRIS                 TRISCbits.TRISC6
+#define LED_SHADOW_LAT                  LATCbits.LATC6
+#define LED_SHADOW_PORT                 PORTCbits.RC6
+#define LED_SHADOW_WPU                  WPUCbits.WPUC6
+#define LED_SHADOW_OD                   ODCONCbits.ODC6
+#define LED_SHADOW_ANS                  ANSELCbits.ANSC6
+#define LED_SHADOW_SetHigh()            do { LATCbits.LATC6 = 1; } while(0)
+#define LED_SHADOW_SetLow()             do { LATCbits.LATC6 = 0; } while(0)
+#define LED_SHADOW_Toggle()             do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0)
+#define LED_SHADOW_GetValue()           PORTCbits.RC6
+#define LED_SHADOW_SetDigitalInput()    do { TRISCbits.TRISC6 = 1; } while(0)
+#define LED_SHADOW_SetDigitalOutput()   do { TRISCbits.TRISC6 = 0; } while(0)
+#define LED_SHADOW_SetPullup()          do { WPUCbits.WPUC6 = 1; } while(0)
+#define LED_SHADOW_ResetPullup()        do { WPUCbits.WPUC6 = 0; } while(0)
+#define LED_SHADOW_SetPushPull()        do { ODCONCbits.ODC6 = 0; } while(0)
+#define LED_SHADOW_SetOpenDrain()       do { ODCONCbits.ODC6 = 1; } while(0)
+#define LED_SHADOW_SetAnalogMode()      do { ANSELCbits.ANSC6 = 1; } while(0)
+#define LED_SHADOW_SetDigitalMode()     do { ANSELCbits.ANSC6 = 0; } while(0)
 
-// get/set DEBUG_INT_TIM1 aliases
-#define DEBUG_INT_TIM1_TRIS                 TRISCbits.TRISC7
-#define DEBUG_INT_TIM1_LAT                  LATCbits.LATC7
-#define DEBUG_INT_TIM1_PORT                 PORTCbits.RC7
-#define DEBUG_INT_TIM1_WPU                  WPUCbits.WPUC7
-#define DEBUG_INT_TIM1_OD                   ODCONCbits.ODC7
-#define DEBUG_INT_TIM1_ANS                  ANSELCbits.ANSC7
-#define DEBUG_INT_TIM1_SetHigh()            do { LATCbits.LATC7 = 1; } while(0)
-#define DEBUG_INT_TIM1_SetLow()             do { LATCbits.LATC7 = 0; } while(0)
-#define DEBUG_INT_TIM1_Toggle()             do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0)
-#define DEBUG_INT_TIM1_GetValue()           PORTCbits.RC7
-#define DEBUG_INT_TIM1_SetDigitalInput()    do { TRISCbits.TRISC7 = 1; } while(0)
-#define DEBUG_INT_TIM1_SetDigitalOutput()   do { TRISCbits.TRISC7 = 0; } while(0)
-#define DEBUG_INT_TIM1_SetPullup()          do { WPUCbits.WPUC7 = 1; } while(0)
-#define DEBUG_INT_TIM1_ResetPullup()        do { WPUCbits.WPUC7 = 0; } while(0)
-#define DEBUG_INT_TIM1_SetPushPull()        do { ODCONCbits.ODC7 = 0; } while(0)
-#define DEBUG_INT_TIM1_SetOpenDrain()       do { ODCONCbits.ODC7 = 1; } while(0)
-#define DEBUG_INT_TIM1_SetAnalogMode()      do { ANSELCbits.ANSC7 = 1; } while(0)
-#define DEBUG_INT_TIM1_SetDigitalMode()     do { ANSELCbits.ANSC7 = 0; } while(0)
+// get/set HALL_INPUT aliases
+#define HALL_INPUT_TRIS                 TRISCbits.TRISC7
+#define HALL_INPUT_LAT                  LATCbits.LATC7
+#define HALL_INPUT_PORT                 PORTCbits.RC7
+#define HALL_INPUT_WPU                  WPUCbits.WPUC7
+#define HALL_INPUT_OD                   ODCONCbits.ODC7
+#define HALL_INPUT_ANS                  ANSELCbits.ANSC7
+#define HALL_INPUT_SetHigh()            do { LATCbits.LATC7 = 1; } while(0)
+#define HALL_INPUT_SetLow()             do { LATCbits.LATC7 = 0; } while(0)
+#define HALL_INPUT_Toggle()             do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0)
+#define HALL_INPUT_GetValue()           PORTCbits.RC7
+#define HALL_INPUT_SetDigitalInput()    do { TRISCbits.TRISC7 = 1; } while(0)
+#define HALL_INPUT_SetDigitalOutput()   do { TRISCbits.TRISC7 = 0; } while(0)
+#define HALL_INPUT_SetPullup()          do { WPUCbits.WPUC7 = 1; } while(0)
+#define HALL_INPUT_ResetPullup()        do { WPUCbits.WPUC7 = 0; } while(0)
+#define HALL_INPUT_SetPushPull()        do { ODCONCbits.ODC7 = 0; } while(0)
+#define HALL_INPUT_SetOpenDrain()       do { ODCONCbits.ODC7 = 1; } while(0)
+#define HALL_INPUT_SetAnalogMode()      do { ANSELCbits.ANSC7 = 1; } while(0)
+#define HALL_INPUT_SetDigitalMode()     do { ANSELCbits.ANSC7 = 0; } while(0)
 
 /**
    @Param

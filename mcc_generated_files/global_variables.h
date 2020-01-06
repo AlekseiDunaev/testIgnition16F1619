@@ -41,6 +41,7 @@
 
 // Store state of toggle
 typedef union {
+    unsigned char all;
     struct {
         unsigned SENS                       :1; //Hall sense state
         unsigned NOTDEF1                    :1; //Nodef1
@@ -53,10 +54,11 @@ typedef union {
     };
 } STATE_TOGGLE_t;
 
-STATE_TOGGLE_t Port = {0, 0, 0, 0, 0, 0, 0, 0};
+STATE_TOGGLE_t Port = {0x00};
 
 // Store flags
 typedef union {
+    unsigned char all;
     struct {
         unsigned lastState                    :1; //Last state Hall sensor
         unsigned overflowCount                    :1; //Overflow count
@@ -69,13 +71,13 @@ typedef union {
     };
 } FLAG_t;
 
-FLAG_t Flag = {0, 0, 0, 0, 0, 0, 0, 0};
+FLAG_t Flag = {0x00};
 
 uint8_t countSELECT1 = 0;
 uint8_t countSELECT2 = 0;
 uint8_t countFUNC1 = 0;
 uint8_t countFUNC2 = 0;
-uint8_t countHALL = 0;
+uint8_t countHALL = 0; //счетчик фильтра датчика Холла
 uint8_t sectorCount = 0; //Счетчик отсчетов прерываний по таймеру при проходе шторки через датчик Холла
 uint8_t lastSectionCount = 0; //Последнее значение счетчик отсчетов прерываний по таймер при проходе шторки через датчик Холла
 uint8_t sparkTime = 0; //Кол-во отсчетов после которого происходит включение катушки при нахождении шторки в датчике Холла
