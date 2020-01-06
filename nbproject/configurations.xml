@@ -14,6 +14,7 @@
         <itemPath>mcc_generated_files/spi.h</itemPath>
         <itemPath>mcc_generated_files/screen.h</itemPath>
         <itemPath>mcc_generated_files/tmr1.h</itemPath>
+        <itemPath>mcc_generated_files/global_variables.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"

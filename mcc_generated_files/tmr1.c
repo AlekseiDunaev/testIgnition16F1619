@@ -50,13 +50,14 @@
 
 #include <xc.h>
 #include "tmr1.h"
-#include "pin_manager.h"
+#include "mcc.h"
 
 /**
   Section: Global Variables Definitions
 */
 volatile uint16_t timer1ReloadVal;
 void (*TMR1_InterruptHandler)(void);
+//uint16_t shift;//Индекс в массиве значений отсчетов до зажигания
 
 /**
   Section: TMR1 APIs
@@ -177,6 +178,88 @@ void TMR1_DefaultInterruptHandler(void){
     // add your TMR1 interrupt custom code
     // or set custom function using TMR1_SetInterruptHandler()
     DEBUG_INT_TIM1_Toggle();
+    
+    if (HALL_INPUT_GetValue() != Port.SENS) {
+        countHALL = 0;
+    }
+    
+    if (countHALL == countHallEnought) {
+        Port.SENS = !Port.SENS;
+        countHALL = 0;
+    }
+    
+    if (Port.SENS) {
+        //Если шторка в датчике 
+        if (!Flag.lastState) { 
+            //Если перед этим шторка была не в датчике
+            //Шторка вошла в датчик
+            if (!Flag.engineStop && !Flag.overrun1 && Flag.overrun2) {
+                //Если двигатель не остановлен
+                //Если нет ограничения оборотов по функции 1
+                //Если нет отграниченияоборотов по функции 2
+                //Включаем катушку зажигания
+                IGN_BLOCK_OUT_SetHigh();
+            } 
+            //Сохраняем счетчик оборотов
+            lastSectionCount = sectorCount;
+            //Обновляем сотояние нахождения шторки
+            Flag.lastState = 1;
+            //Сбрасываем флаг переполнения
+            Flag.overflowCount = 0;
+            //Обнуляем счетчик отключения катушки
+            coilOffCount &= 0x0F;
+            //Снимаем флаг отключения катушки. Двигатель работает.
+            Flag.coilOff = 0;
+            return;
+            
+        } else {
+            //Шторка находится по прежнему в датчике
+            LED_SHADOW_SetLow();//Включаем светодиод
+            //Если счетчик переполнен, не проверяем его на момент искрообразования
+            if (Flag.overflowCount) {
+                return;
+            } else {
+                sectorCount++; //Увеличиваем значение счетчика срабатывания таймера
+                if (sectorCount >= 239) { //Проверяем счетчик на перполнение
+                    Flag.overflowCount = 1;
+                } else if (!sparkTime) { //Проверяем счетчик намомент искрообразования, если он не равен нулю (т.е. при запуске))
+                    return; //Происходит запуск, искра бутет образована при выходе шторки из датчика
+                }
+                if (sectorCount == sparkTime) {//Если кол-во отсчетов с начала захода шторки в датчик совпадает с расчетным, то инициализируем искру
+                }
+                return;
+            }
+        }
+        
+    } else if (Flag.lastState) {
+        //Шторка вышла из сенсора
+        IGN_BLOCK_OUT_SetLow(); //Инициализируем искру, если этого еще не произошло (запуск).
+        Flag.lastState = 0;
+        coilCount = 0;
+        
+        if (sparkTime == 0) {
+            coilCount = sectorCount + 239;
+            //shift = sectorCount + 239;
+            //coilCount = shift;
+        } else {
+            coilCount = sectorCount + sparkTime;
+            //shift = sectorCount + sparkTime;
+            //coilCount = shift;
+        }
+        
+        sparkTime = shiftIgnMassive[(uint8_t)coilCount];
+        return;
+        
+    } else {
+        //Шторка по прежнему вне сенсора
+        LED_SHADOW_SetHigh();
+        if (!(--coilCount)) {
+            if (Flag.engineStop || Flag.coilOff || Flag.overrun1 || Flag.overrun2) {
+                return;
+            }
+            IGN_BLOCK_OUT_SetHigh();
+        }
+    }
 }
 
 /**

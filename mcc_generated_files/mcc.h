@@ -55,8 +55,7 @@
 #include "spi.h"
 #include "tmr1.h"
 #include "screen.h"
-
-
+#include "global_variables.h"
 
 /**
  * @Param
