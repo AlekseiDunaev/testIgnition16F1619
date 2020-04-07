@@ -113,6 +113,7 @@ void PIN_MANAGER_Initialize(void)
 	
     SSPDATPPS = 0x0C;   //RB4->MSSP:SDI;    
     RA1PPS = 0x11;   //RA1->MSSP:SDO;    
+    RA2PPS = 0x0C;   //RA2->CCP1:CCP1;    
     SSPCLKPPS = 0x00;   //RA0->MSSP:SCK;    
     RA0PPS = 0x10;   //RA0->MSSP:SCK;    
 }

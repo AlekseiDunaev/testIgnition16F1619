@@ -83,15 +83,10 @@ uint8_t lastSectionCount = 0; //Последнее значение счетчи
 uint8_t sparkTime = 0; //Кол-во отсчетов после которого происходит включение катушки при нахождении шторки в датчике Холла
 const uint8_t countEnought = 255;
 const uint8_t countHallEnought = 4;
-uint16_t coilCount = 0;
-uint16_t coilOffCount = 0;
-
-// Read empty byte from SPI SDI
-uint8_t readEmpty;
+uint16_t coilCount = 0; //Счетчик включения катушки
+uint16_t coilOffCount = 0; //Счетчик простоя катушки
 
 // Table shift ignition
-//uint8_t shiftIgn = 0;
-//uint8_t shiftIgnCount = 0;
 uint8_t shiftIgnMassive[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                             7, 8, 9 ,9 ,10 ,10, 11, 12, 12, 13, 14, 15, 15, 16, 17, 18,
                             19, 19, 20, 21, 22, 22, 23, 24, 25, 25, 26, 27, 28, 29, 30, 31,

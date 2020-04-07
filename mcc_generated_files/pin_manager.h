@@ -105,45 +105,37 @@
 #define SPI_SDO_SetAnalogMode()      do { ANSELAbits.ANSA1 = 1; } while(0)
 #define SPI_SDO_SetDigitalMode()     do { ANSELAbits.ANSA1 = 0; } while(0)
 
-// get/set SCREEN_RESET aliases
-#define SCREEN_RESET_TRIS                 TRISAbits.TRISA2
-#define SCREEN_RESET_LAT                  LATAbits.LATA2
-#define SCREEN_RESET_PORT                 PORTAbits.RA2
-#define SCREEN_RESET_WPU                  WPUAbits.WPUA2
-#define SCREEN_RESET_OD                   ODCONAbits.ODA2
-#define SCREEN_RESET_ANS                  ANSELAbits.ANSA2
-#define SCREEN_RESET_SetHigh()            do { LATAbits.LATA2 = 1; } while(0)
-#define SCREEN_RESET_SetLow()             do { LATAbits.LATA2 = 0; } while(0)
-#define SCREEN_RESET_Toggle()             do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0)
-#define SCREEN_RESET_GetValue()           PORTAbits.RA2
-#define SCREEN_RESET_SetDigitalInput()    do { TRISAbits.TRISA2 = 1; } while(0)
-#define SCREEN_RESET_SetDigitalOutput()   do { TRISAbits.TRISA2 = 0; } while(0)
-#define SCREEN_RESET_SetPullup()          do { WPUAbits.WPUA2 = 1; } while(0)
-#define SCREEN_RESET_ResetPullup()        do { WPUAbits.WPUA2 = 0; } while(0)
-#define SCREEN_RESET_SetPushPull()        do { ODCONAbits.ODA2 = 0; } while(0)
-#define SCREEN_RESET_SetOpenDrain()       do { ODCONAbits.ODA2 = 1; } while(0)
-#define SCREEN_RESET_SetAnalogMode()      do { ANSELAbits.ANSA2 = 1; } while(0)
-#define SCREEN_RESET_SetDigitalMode()     do { ANSELAbits.ANSA2 = 0; } while(0)
+// get/set RA2 procedures
+#define RA2_SetHigh()            do { LATAbits.LATA2 = 1; } while(0)
+#define RA2_SetLow()             do { LATAbits.LATA2 = 0; } while(0)
+#define RA2_Toggle()             do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0)
+#define RA2_GetValue()              PORTAbits.RA2
+#define RA2_SetDigitalInput()    do { TRISAbits.TRISA2 = 1; } while(0)
+#define RA2_SetDigitalOutput()   do { TRISAbits.TRISA2 = 0; } while(0)
+#define RA2_SetPullup()             do { WPUAbits.WPUA2 = 1; } while(0)
+#define RA2_ResetPullup()           do { WPUAbits.WPUA2 = 0; } while(0)
+#define RA2_SetAnalogMode()         do { ANSELAbits.ANSA2 = 1; } while(0)
+#define RA2_SetDigitalMode()        do { ANSELAbits.ANSA2 = 0; } while(0)
 
-// get/set FUNC2_IN aliases
-#define FUNC2_IN_TRIS                 TRISBbits.TRISB4
-#define FUNC2_IN_LAT                  LATBbits.LATB4
-#define FUNC2_IN_PORT                 PORTBbits.RB4
-#define FUNC2_IN_WPU                  WPUBbits.WPUB4
-#define FUNC2_IN_OD                   ODCONBbits.ODB4
-#define FUNC2_IN_ANS                  ANSELBbits.ANSB4
-#define FUNC2_IN_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
-#define FUNC2_IN_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
-#define FUNC2_IN_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
-#define FUNC2_IN_GetValue()           PORTBbits.RB4
-#define FUNC2_IN_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
-#define FUNC2_IN_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
-#define FUNC2_IN_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
-#define FUNC2_IN_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
-#define FUNC2_IN_SetPushPull()        do { ODCONBbits.ODB4 = 0; } while(0)
-#define FUNC2_IN_SetOpenDrain()       do { ODCONBbits.ODB4 = 1; } while(0)
-#define FUNC2_IN_SetAnalogMode()      do { ANSELBbits.ANSB4 = 1; } while(0)
-#define FUNC2_IN_SetDigitalMode()     do { ANSELBbits.ANSB4 = 0; } while(0)
+// get/set SPI_SDI aliases
+#define SPI_SDI_TRIS                 TRISBbits.TRISB4
+#define SPI_SDI_LAT                  LATBbits.LATB4
+#define SPI_SDI_PORT                 PORTBbits.RB4
+#define SPI_SDI_WPU                  WPUBbits.WPUB4
+#define SPI_SDI_OD                   ODCONBbits.ODB4
+#define SPI_SDI_ANS                  ANSELBbits.ANSB4
+#define SPI_SDI_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
+#define SPI_SDI_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
+#define SPI_SDI_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
+#define SPI_SDI_GetValue()           PORTBbits.RB4
+#define SPI_SDI_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
+#define SPI_SDI_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
+#define SPI_SDI_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
+#define SPI_SDI_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
+#define SPI_SDI_SetPushPull()        do { ODCONBbits.ODB4 = 0; } while(0)
+#define SPI_SDI_SetOpenDrain()       do { ODCONBbits.ODB4 = 1; } while(0)
+#define SPI_SDI_SetAnalogMode()      do { ANSELBbits.ANSB4 = 1; } while(0)
+#define SPI_SDI_SetDigitalMode()     do { ANSELBbits.ANSB4 = 0; } while(0)
 
 // get/set SELECT1_IN aliases
 #define SELECT1_IN_TRIS                 TRISBbits.TRISB5

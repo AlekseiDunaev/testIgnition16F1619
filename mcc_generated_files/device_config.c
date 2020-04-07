@@ -52,7 +52,7 @@
 #pragma config MCLRE = ON    // MCLR Pin Function Select->MCLR/VPP pin function is MCLR
 #pragma config CP = OFF    // Flash Program Memory Code Protection->Program memory code protection is disabled
 #pragma config BOREN = ON    // Brown-out Reset Enable->Brown-out Reset enabled
-#pragma config CLKOUTEN = ON    // Clock Out Enable->CLKOUT function is enabled on the CLKOUT pin
+#pragma config CLKOUTEN = OFF    // Clock Out Enable->CLKOUT function is disabled. I/O or oscillator function on the CLKOUT pin
 #pragma config IESO = ON    // Internal/External Switch Over->Internal External Switch Over mode is enabled
 #pragma config FCMEN = ON    // Fail-Safe Clock Monitor Enable->Fail-Safe Clock Monitor is enabled
 

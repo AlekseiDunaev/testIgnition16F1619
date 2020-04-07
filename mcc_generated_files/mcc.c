@@ -51,19 +51,30 @@ void SYSTEM_Initialize(void)
 {
     PIN_MANAGER_Initialize();
     OSCILLATOR_Initialize();
+#ifndef SOFT
     SPI_Initialize();
+    SCREEN_Initialize();
+#endif
+    CCP1_Initialize();
+    TMR4_Initialize();
+    //CLC4_Initialize();
+    //PWM3_Initialize();
+    TMR2_Initialize();
     TMR1_Initialize();
-    //SCREEN_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)
 {
-    // SCS INTOSC; SPLLEN disabled; IRCF 16MHz_HF; 
-    OSCCON = 0x7A;
+    // SCS FOSC; SPLLEN enabled; IRCF 16MHz_HF; 
+    OSCCON = 0xF8;
     // TUN 0; 
     OSCTUNE = 0x00;
     // SBOREN disabled; BORFS disabled; 
     BORCON = 0x00;
+    // Wait for PLL to stabilize
+    while(PLLR == 0)
+    {
+}
 }
 
 

@@ -9,7 +9,7 @@
 
 void SCREEN_Initialize() {
     
-  SCREEN_RESET_SetHigh();
+  //SCREEN_RESET_SetHigh();
   SPI_ILI9341_SendCommand(ILI9341_RESET);
   __delay_ms(100);
   
@@ -133,7 +133,7 @@ void SCREEN_Fill(uint16_t color) {
 	SCREEN_SetCursorPosition(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
     SPI_ILI9341_SendCommand(ILI9341_GRAM);
 
-	for (uint32_t n = 0; n < 100000 ; n++) {
+	for (uint32_t n = 0; n < 76800 ; n++) {
 		SPI_ILI9341_SendData(i);
 		SPI_ILI9341_SendData(j);
 	}

@@ -53,9 +53,16 @@
 #include <stdbool.h>
 #include "interrupt_manager.h"
 #include "spi.h"
+#include "pwm3.h"
+#include "tmr4.h"
 #include "tmr1.h"
+#include "ccp1.h"
+#include "tmr2.h"
 #include "screen.h"
 #include "global_variables.h"
+#include "pwm3.h"
+
+
 
 /**
  * @Param
