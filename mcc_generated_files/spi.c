@@ -70,8 +70,8 @@ void SPI_Initialize(void)
     // R_nW write_noTX; P stopbit_notdetected; S startbit_notdetected; BF RCinprocess_TXcomplete; SMP End; UA dontupdate; CKE Active to Idle; D_nA lastbyte_address; 
     SSP1STAT = 0xC0;
     
-    // SSPEN enabled; WCOL no_collision; CKP Idle:Low, Active:High; SSPM FOSC/4; SSPOV no_overflow; 
-    SSP1CON1 = 0x20;
+    // SSPEN enabled; WCOL no_collision; CKP Idle:Low, Active:High; SSPM FOSC/16; SSPOV no_overflow; 
+    SSP1CON1 = 0x21;
     
     // SSP1ADD 0; 
     SSP1ADD = 0x00;
@@ -91,6 +91,7 @@ uint8_t SPI_Exchange8bit(uint8_t data)
     return (SSP1BUF);
 }
 
+/*
 uint8_t SPI_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut)
 {
     uint8_t bytesWritten = 0;
@@ -129,21 +130,28 @@ uint8_t SPI_Exchange8bitBuffer(uint8_t *dataIn, uint8_t bufLen, uint8_t *dataOut
 
     return bytesWritten;
 }
+*/
 
+/*
 bool SPI_IsBufferFull(void)
 {
     return (SSP1STATbits.BF);
 }
+*/
 
+/*
 bool SPI_HasWriteCollisionOccured(void)
 {
     return (SSP1CON1bits.WCOL);
 }
+*/
 
+/*
 void SPI_ClearWriteCollisionStatus(void)
 {
     SSP1CON1bits.WCOL = 0;
 }
+*/
 
 void SPI_ILI9341_SendCommand(uint8_t data) {
     SPI_CS_SetLow();

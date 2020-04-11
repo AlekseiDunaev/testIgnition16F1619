@@ -53,17 +53,15 @@
 #include <stdbool.h>
 #include "interrupt_manager.h"
 #include "spi.h"
-#include "pwm3.h"
-#include "tmr4.h"
+#include "tmr2.h"
+#include "ccp1.h"
+#include "screen.h"
+
+#ifdef TEST
 #include "tmr1.h"
 #include "ccp1.h"
-#include "tmr2.h"
-#include "screen.h"
-#include "global_variables.h"
-#include "pwm3.h"
-
-
-
+#include "test_engine_rps.h"
+#endif
 /**
  * @Param
     none

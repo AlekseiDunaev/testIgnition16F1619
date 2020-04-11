@@ -28,16 +28,18 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef _GLOBAL_VARIABLES_H
-#define	_GLOBAL_VARIABLES_H
-#include <xc.h> // include processor files - each processor file is guarded.  
+#ifndef XC_HEADER_TEMPLATE_H
+#define	XC_HEADER_TEMPLATE_H
+
+#include <xc.h> // include processor files - each processor file is guarded.
+#include <stdio.h>
+#include "mcc_generated_files/test_engine_rpm.h"
 
 // TODO Insert appropriate #include <>
-#include "test_engine_rps.h"
+
 // TODO Insert C++ class definitions if appropriate
 
 // TODO Insert declarations
-
 // Store state of toggle
 typedef union {
     unsigned char all;
@@ -72,6 +74,8 @@ typedef union {
 
 FLAG_t Flag = {0x00};
 
+
+
 uint8_t countSELECT1 = 0;
 uint8_t countSELECT2 = 0;
 uint8_t countFUNC1 = 0;
@@ -102,6 +106,8 @@ uint8_t shiftIgnMassive[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                             185, 186, 187, 189, 190, 191, 193, 194, 195, 197, 198, 199, 201, 202,
                             203, 205, 206, 208, 209, 210, 212, 213, 214, 216, 217, 218, 220, 221,
                             222, 224, 225, 226, 228, 229, 230, 232, 233, 234, 236, 237, 238, 000};
+
+const uint8_t secPerMin = 60; // Seconds per minutes
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
@@ -138,5 +144,5 @@ extern "C" {
 }
 #endif /* __cplusplus */
 
-#endif /* _GLOBAL_VARIABLES */
+#endif	/* XC_HEADER_TEMPLATE_H */
 

@@ -48,6 +48,8 @@
   Section: Included Files
 */
 
+#ifdef TEST
+
 #include <xc.h>
 #include "ccp1.h"
 #include "mcc.h"
@@ -63,11 +65,11 @@ void CCP1_Initialize(void)
 	// MODE Toggle; EN enabled; FMT right_aligned; 
 	CCP1CON = 0x82;    
 	
-	// RH 24; 
-	CCPR1H = 0x18;    
+	// RH 196; 
+	CCPR1H = 0x2A;    
 	
-	// RL 56; 
-	CCPR1L = 0x38;    
+	// RL 32; 
+	CCPR1L = 0xAA;    
 
     
     // Clear the CCP1 interrupt flag
@@ -88,29 +90,35 @@ void CCP1_SetCompareCount(uint16_t compareCount)
     CCPR1H = module.ccpr1h;
 }
 
+/*
+CCP1_PERIOD_REG_T CCP1_GetCompareCount()
+{
+    CCP1_PERIOD_REG_T module;
+    
+    module.ccpr1l = CCPR1L;
+    module.ccpr1h = CCPR1H;
+    
+    return module;
+}
+*/
+
+/*
 bool CCP1_OutputStatusGet(void)
 {
     // Returns the output status
     return(CCP1CONbits.OUT);
 }
+*/
 
-void CCP1_CompareISR(void)
-{
+void CCP1_CompareISR(void) {
     // Clear the CCP1 interrupt flag
     PIR1bits.CCP1IF = 0;
-    
-    // Add user code here
-	
-    // Toggle CCP between 200 ms and 400 ms
-    
-    if (CCPR1H == 0x18) {
-        CCP1_SetCompareCount(0x3070);
-    } else {
-        CCP1_SetCompareCount(0x1838);
-    }
-    LED_DEBUG_Toggle();
 
+    // Add user code here
+    TEST_HALL_OUTPUT_SetLow();
 }
 /**
  End of File
 */
+
+#endif

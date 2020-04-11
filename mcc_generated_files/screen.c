@@ -6,6 +6,12 @@
  */
 
 #include "screen.h"
+#include "font.h"
+#include "pin_manager.h"
+#include "spi.h"
+#include "device_config.h"
+
+extern const font_type TimesNewRoman;
 
 void SCREEN_Initialize() {
     
@@ -133,10 +139,12 @@ void SCREEN_Fill(uint16_t color) {
 	SCREEN_SetCursorPosition(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
     SPI_ILI9341_SendCommand(ILI9341_GRAM);
 
-	for (uint32_t n = 0; n < 76800 ; n++) {
-		SPI_ILI9341_SendData(i);
-		SPI_ILI9341_SendData(j);
-	}
+	for (uint8_t n = 0; n < SCREEN_WIDTH; n++) {
+        for (uint16_t k = 0; k < SCREEN_HEIGHT; k++) {
+            SPI_ILI9341_SendData(i);
+            SPI_ILI9341_SendData(j);
+        }
+    }
 }
 
 void SCREEN_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
@@ -148,6 +156,7 @@ void SCREEN_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
 
 }
 
+/*
 void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
     uint8_t i, j;
 	i = color >> 8;
@@ -156,8 +165,41 @@ void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t
 	SCREEN_SetCursorPosition(x1, y1, x2, y2);
     SPI_ILI9341_SendCommand(ILI9341_GRAM);
 
-	for (uint32_t n = 0; n < ((x2 - x1) * (y2 - y1)) ; n++) {
+	for (uint16_t n = 0; n < ((x2 - x1) * (y2 - y1)) ; n++) {
 		SPI_ILI9341_SendData(i);
 		SPI_ILI9341_SendData(j);
+    }
+}
+*/
+
+uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c) {
+        uint16_t i, j;
+        unsigned short Data;
+        
+        uint16_t offset = (c-48)*TimesNewRoman.height;
+        uint16_t width = TimesNewRoman.width;
+        
+    	for (i = 0; i < TimesNewRoman.height; i++) {
+
+            Data = TimesNewRoman.data_table[offset+i];    
+            
+            
+            for (j = 0; j < width; j++) {
+                if ((Data << j) & 0x8000) {
+                    SCREEN_DrawPixel(x + j, (y + i), 0xFFFF);  //white
+                } else {
+                    SCREEN_DrawPixel(x + j, (y + i), 0x0000);  //black
+                }
+            }
+        }
+        
+        return x+width;
+}
+
+
+void SCREEN_DrawString(uint16_t x, uint16_t y, char *str)
+{
+    while(*str) {
+        x = SCREEN_Putchar(x,y,*str++);
     }
 }

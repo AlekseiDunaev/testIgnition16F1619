@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=testIgnition16F1619.X
 
 # Active Configuration
-DEFAULTCONF=soft
+DEFAULTCONF=test
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=hard soft 
+ALLCONFS=hard soft test 
 
 
 # build
@@ -47,6 +47,7 @@ ALLCONFS=hard soft
 .clobber-impl: .clobber-pre .depcheck-impl
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=hard clean
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=soft clean
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=test clean
 
 
 
@@ -54,6 +55,7 @@ ALLCONFS=hard soft
 .all-impl: .all-pre .depcheck-impl
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=hard build
 	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=soft build
+	    ${MAKE} SUBPROJECTS=${SUBPROJECTS} CONF=test build
 
 
 

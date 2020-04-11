@@ -55,26 +55,25 @@ void SYSTEM_Initialize(void)
     SPI_Initialize();
     SCREEN_Initialize();
 #endif
-    CCP1_Initialize();
-    TMR4_Initialize();
-    //CLC4_Initialize();
-    //PWM3_Initialize();
+    
     TMR2_Initialize();
+
+#ifdef TEST    
     TMR1_Initialize();
+    CCP1_Initialize();
+    TEST_Engine_Initialize(10, 74);
+#endif
 }
+
 
 void OSCILLATOR_Initialize(void)
 {
-    // SCS FOSC; SPLLEN enabled; IRCF 16MHz_HF; 
-    OSCCON = 0xF8;
+    // SCS FOSC; SPLLEN disabled; IRCF 16MHz_HF; 
+    OSCCON = 0x78;
     // TUN 0; 
     OSCTUNE = 0x00;
     // SBOREN disabled; BORFS disabled; 
     BORCON = 0x00;
-    // Wait for PLL to stabilize
-    while(PLLR == 0)
-    {
-}
 }
 
 

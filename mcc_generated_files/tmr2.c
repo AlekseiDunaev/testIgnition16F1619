@@ -75,8 +75,8 @@ void TMR2_Initialize(void)
     // T2RSEL T2IN; 
     T2RST = 0x00;
 
-    // T2PR 119; 
-    T2PR = 0x77;
+    // T2PR 59; 
+    T2PR = 0x3B;
 
     // TMR2 0; 
     T2TMR = 0x00;
@@ -94,40 +94,53 @@ void TMR2_Initialize(void)
     T2CON = 0x90;
 }
 
+/*
 void TMR2_ModeSet(TMR2_HLT_MODE mode)
 {
    // Configure different types HLT mode
     T2HLTbits.MODE = mode;
 }
+*/
 
+/*
 void TMR2_ExtResetSourceSet(TMR2_HLT_EXT_RESET_SOURCE reset)
 {
     //Configure different types of HLT external reset source
     T2RSTbits.RSEL = reset;
 }
+*/
 
+/*
 void TMR2_Start(void)
 {
     // Start the Timer by writing to TMRxON bit
     T2CONbits.TMR2ON = 1;
 }
+*/
 
+/*
 void TMR2_StartTimer(void)
 {
     TMR2_Start();
 }
+*/
 
+/*
 void TMR2_Stop(void)
 {
     // Stop the Timer by writing to TMRxON bit
     T2CONbits.TMR2ON = 0;
 }
+*/
 
+/*
 void TMR2_StopTimer(void)
 {
     TMR2_Stop();
 }
+*/
 
+/*
 uint8_t TMR2_Counter8BitGet(void)
 {
     uint8_t readVal;
@@ -136,32 +149,43 @@ uint8_t TMR2_Counter8BitGet(void)
 
     return readVal;
 }
+*/
 
+/*
 uint8_t TMR2_ReadTimer(void)
 {
     return TMR2_Counter8BitGet();
 }
+*/
 
+/*
 void TMR2_Counter8BitSet(uint8_t timerVal)
 {
     // Write to the Timer2 register
     TMR2 = timerVal;
 }
+*/
 
+/*
 void TMR2_WriteTimer(uint8_t timerVal)
 {
     TMR2_Counter8BitSet(timerVal);
 }
+*/
 
+/*
 void TMR2_Period8BitSet(uint8_t periodVal)
 {
    PR2 = periodVal;
 }
+*/
 
+/*
 void TMR2_LoadPeriodRegister(uint8_t periodVal)
 {
    TMR2_Period8BitSet(periodVal);
 }
+*/
 
 void TMR2_ISR(void)
 {
@@ -183,12 +207,11 @@ void TMR2_SetInterruptHandler(void (* InterruptHandler)(void)){
 void TMR2_DefaultInterruptHandler(void){
     // add your TMR2 interrupt custom code
     // or set custom function using TMR2_SetInterruptHandler()
-    DEBUG_INT_TIM1_Toggle();
+    DEBUG_INT_TIM2_Toggle();
 
     if (HALL_INPUT_GetValue() != Port.SENS) {
         if ((++countHALL) == countHallEnought) {
             Port.SENS = !Port.SENS;
-            DEBUG_INT_TIM1_Toggle();
             countHALL = 0;
         }
     } else {

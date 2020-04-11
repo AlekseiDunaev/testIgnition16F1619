@@ -44,17 +44,19 @@
 #include "mcc_generated_files/mcc.h"
 
 /*
- Global variable
- */
+ Global variable 
+*/
+char buff[4];
 
+ // TODO Insert declarations
 /*
-                         Main application
+    Main application
  */
 
 void main(void) {
     // initialize the device
     SYSTEM_Initialize();
-    
+        
     //countSELECT1 = countSELECT2 = countFUNC1 = countFUNC2 = countHALL = 0;
     
     Port.SELECT1 = SELECT1_IN_GetValue();
@@ -79,6 +81,10 @@ void main(void) {
         Flag.lastState = 0;
         IGN_BLOCK_OUT_SetLow();
     }
+
+#ifndef SOFT
+    SCREEN_Fill(0x0000);
+#endif
     
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
@@ -94,9 +100,7 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-#ifndef SOFT
-    SCREEN_Fill(0x0000);
-#endif
+
     
     while (1) {
 
@@ -127,23 +131,22 @@ void main(void) {
             countFUNC1 = 0;
         }
 
-        //if (FUNC2_IN_GetValue() != Port.FUNC2) {
-        //    if ((++countFUNC2) == countEnought) {
-        //        Port.FUNC2 = !Port.FUNC2;
-        //        countFUNC2 = 0;
-        //    }
-        //} else {
-        //    countFUNC2 = 0;
-        //}
+        if (FUNC2_IN_GetValue() != Port.FUNC2) {
+            if ((++countFUNC2) == countEnought) {
+                Port.FUNC2 = !Port.FUNC2;
+                countFUNC2 = 0;
+            }
+        } else {
+            countFUNC2 = 0;
+        }
         
 #ifndef SOFT
-        SCREEN_DrawBox(50, 50, 55, 55, 0xF800);
-        SCREEN_DrawPixel(150, 150, 0x0000);
-        __delay_ms(100);
-        SCREEN_DrawBox(50, 50, 55, 55, 0x0000);
-        SCREEN_DrawPixel(150, 150, 0xF800);
-        __delay_ms(100);
-#endif      
+#ifdef TEST
+        sprintf(buff, "%4d", current.RPS * secPerMin);
+        SCREEN_DrawString(10, 10, buff);
+        //SCREEN_DrawBox(10, 10, 80, 35, 0x0000);
+#endif
+#endif
     }       
 }
 /**
