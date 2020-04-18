@@ -46,7 +46,7 @@
 /*
  Global variable 
 */
-char buff[4];
+
 
  // TODO Insert declarations
 /*
@@ -105,7 +105,7 @@ void main(void) {
     while (1) {
 
         if (SELECT1_IN_GetValue() != Port.SELECT1) {
-            if ((++countSELECT1) == countEnought) {
+            if ((++countSELECT1) == COUNT_BUTTON_ENOUGHT) {
                 Port.SELECT1 = !Port.SELECT1;
                 countSELECT1 = 0;
             }
@@ -114,7 +114,7 @@ void main(void) {
         }
 
         if (SELECT2_IN_GetValue() != Port.SELECT2) {
-            if ((++countSELECT2) == countEnought) {
+            if ((++countSELECT2) == COUNT_BUTTON_ENOUGHT) {
                 Port.SELECT2 = !Port.SELECT2;
                 countSELECT2 = 0;
             }
@@ -123,7 +123,7 @@ void main(void) {
         }
 
         if (FUNC1_IN_GetValue() != Port.FUNC1) {
-            if ((++countFUNC1) == countEnought) {
+            if ((++countFUNC1) == COUNT_BUTTON_ENOUGHT) {
                 Port.FUNC1 = !Port.FUNC1;
                 countFUNC1 = 0;
             }
@@ -132,7 +132,7 @@ void main(void) {
         }
 
         if (FUNC2_IN_GetValue() != Port.FUNC2) {
-            if ((++countFUNC2) == countEnought) {
+            if ((++countFUNC2) == COUNT_BUTTON_ENOUGHT) {
                 Port.FUNC2 = !Port.FUNC2;
                 countFUNC2 = 0;
             }
@@ -142,9 +142,27 @@ void main(void) {
         
 #ifndef SOFT
 #ifdef TEST
-        sprintf(buff, "%4d", current.RPS * secPerMin);
-        SCREEN_DrawString(10, 10, buff);
-        //SCREEN_DrawBox(10, 10, 80, 35, 0x0000);
+        temp = current * SEC_PER_MIN;
+        tempDiv10 = temp / 10;
+        tempDiv100 = temp / 100;
+        tempDiv1000 = temp / 1000;
+        SCREEN_Putchar(90, 10, tempDiv1000);
+        SCREEN_Putchar(105, 10, tempDiv100 - 10*(tempDiv1000));
+        SCREEN_Putchar(120, 10, tempDiv10 - 10*(tempDiv100));
+        SCREEN_Putchar(135, 10, temp - 10*(tempDiv10));
+        //sprintf(buff, "%4d", current * SEC_PER_MIN);
+        //SCREEN_DrawString(90, 10, buff);
+#else
+        temp = current * RPM_COEFFICIENT;
+        tempDiv10 = temp / 10;
+        tempDiv100 = temp / 100;
+        tempDiv1000 = temp / 1000;
+        SCREEN_Putchar(90, 10, tempDiv1000);
+        SCREEN_Putchar(105, 10, tempDiv100 - 10*(tempDiv1000));
+        SCREEN_Putchar(120, 10, tempDiv10 - 10*(tempDiv100));
+        SCREEN_Putchar(135, 10, temp - 10*(tempDiv10));
+        //sprintf(buff, "%4d", current * RPM_COEFFICIENT);
+        //SCREEN_DrawString(90, 10, buff);
 #endif
 #endif
     }       

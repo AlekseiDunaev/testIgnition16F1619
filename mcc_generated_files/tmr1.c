@@ -184,7 +184,7 @@ void TMR1_DefaultInterruptHandler(void) {
 
     TMR1_WriteTimer(testEngineTable.ter[step].tim1Count);
     CCP1_SetCompareCount(testEngineTable.ter[step].ccp1Count);
-    current = testEngineTable.ter[step];
+    current = testEngineTable.ter[step].RPS;
     
     if (repeat != 0) {
         repeat--;
@@ -198,7 +198,6 @@ void TMR1_DefaultInterruptHandler(void) {
         }
         repeat = 100;
     }
-
 }
 
 /**

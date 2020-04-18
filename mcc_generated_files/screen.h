@@ -35,8 +35,11 @@
   Section: Included Files
 */
 
-
 #include <stdint.h>
+#include "font.h"
+#include "pin_manager.h"
+#include "spi.h"
+#include "device_config.h"
 
 //#include <xc.h> // include processor files - each processor file is guarded.  
 

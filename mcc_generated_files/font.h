@@ -1,5 +1,5 @@
-#ifndef FONT_H
-#define	FONT_H
+#ifndef _FONT_H
+#define	_FONT_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>

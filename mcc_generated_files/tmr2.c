@@ -210,16 +210,14 @@ void TMR2_DefaultInterruptHandler(void){
     DEBUG_INT_TIM2_Toggle();
 
     if (HALL_INPUT_GetValue() != Port.SENS) {
-        if ((++countHALL) == countHallEnought) {
+        if ((++countHALL) == COUNT_HALL_ENOUGHT) {
             Port.SENS = !Port.SENS;
             countHALL = 0;
         }
     } else {
         countHALL = 0;
     }
-        
-    
-    
+          
     if (Port.SENS) {
         //Если шторка в датчике 
         if (!Flag.lastState) {
@@ -283,17 +281,16 @@ void TMR2_DefaultInterruptHandler(void){
             //shift = sectorCount + 239;
             //coilCount = shift;
         }
-        
         else {
             coilCount = sectorCount + sparkTime;
             //shift = sectorCount + sparkTime;
             //coilCount = shift;
         }
-
-        //sparkTime = shiftIgnMassive[(uint8_t)coilCount];
         sparkTime = shiftIgnMassive[(uint8_t)sectorCount];
+#ifndef TEST
+        current = sectorCount;
+#endif
         return;
-
     } else {
         //Шторка по прежнему вне сенсора
         LED_SHADOW_SetHigh();

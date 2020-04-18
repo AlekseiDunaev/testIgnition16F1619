@@ -28,12 +28,19 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef XC_HEADER_TEMPLATE_H
-#define	XC_HEADER_TEMPLATE_H
+#ifndef MAIN_H
+#define	MAIN_H
+
+#define SEC_PER_MIN 60 // Seconds per minutes
+#define RPM_COEFFICIENT 0.00006 * 6 * SEC_PER_MIN //ms per one tick Tim1
+#define COUNT_BUTTON_ENOUGHT 255
+#define COUNT_HALL_ENOUGHT 4
 
 #include <xc.h> // include processor files - each processor file is guarded.
-#include <stdio.h>
+//#include <stdio.h>
+#ifdef TEST
 #include "mcc_generated_files/test_engine_rpm.h"
+#endif
 
 // TODO Insert appropriate #include <>
 
@@ -44,14 +51,14 @@
 typedef union {
     unsigned char all;
     struct {
-        unsigned SENS                       :1; //Hall sense state
-        unsigned NOTDEF1                    :1; //Nodef1
-        unsigned NOTDEF2                    :1; //Nodef2
-        unsigned NOTDEF3                    :1; //Nodef3
-        unsigned SELECT1                    :1; //Select table ignition #1
-        unsigned SELECT2                    :1; //Select table ignition #2
-        unsigned FUNC1                      :1; //Engine stop
-        unsigned FUNC2                      :1; //Warm spark
+        unsigned SENS           :1; //Hall sense state
+        unsigned NOTDEF1        :1; //Nodef1
+        unsigned NOTDEF2        :1; //Nodef2
+        unsigned NOTDEF3        :1; //Nodef3
+        unsigned SELECT1        :1; //Select table ignition #1
+        unsigned SELECT2        :1; //Select table ignition #2
+        unsigned FUNC1          :1; //Engine stop
+        unsigned FUNC2          :1; //Warm spark
     };
 } STATE_TOGGLE_t;
 
@@ -61,20 +68,18 @@ STATE_TOGGLE_t Port = {0x00};
 typedef union {
     unsigned char all;
     struct {
-        unsigned lastState                    :1; //Last state Hall sensor
-        unsigned overflowCount                    :1; //Overflow count
-        unsigned coilOff                      :1; //Coil disable when engine not work
-        unsigned engineStop                      :1; //Disable engine
-        unsigned overrun1                    :1; //Enable limit overrun FUNC1
-        unsigned overrun2                    :1; //Enable limit overrun FUNC2
-        unsigned NOTDEF1                    :1; //Nodef1
-        unsigned NOTDEF2                    :1; //Nodef2
+        unsigned lastState      :1; //Last state Hall sensor
+        unsigned overflowCount  :1; //Overflow count
+        unsigned coilOff        :1; //Coil disable when engine not work
+        unsigned engineStop     :1; //Disable engine
+        unsigned overrun1       :1; //Enable limit overrun FUNC1
+        unsigned overrun2       :1; //Enable limit overrun FUNC2
+        unsigned NOTDEF1        :1; //Nodef1
+        unsigned NOTDEF2        :1; //Nodef2
     };
 } FLAG_t;
 
 FLAG_t Flag = {0x00};
-
-
 
 uint8_t countSELECT1 = 0;
 uint8_t countSELECT2 = 0;
@@ -84,8 +89,6 @@ uint8_t countHALL = 0; //счетчик фильтра датчика Холла
 uint8_t sectorCount = 0; //Счетчик отсчетов прерываний по таймеру при проходе шторки через датчик Холла
 uint8_t lastSectionCount = 0; //Последнее значение счетчик отсчетов прерываний по таймер при проходе шторки через датчик Холла
 uint8_t sparkTime = 0; //Кол-во отсчетов после которого происходит включение катушки при нахождении шторки в датчике Холла
-const uint8_t countEnought = 255;
-const uint8_t countHallEnought = 4;
 uint16_t coilCount = 0; //Счетчик включения катушки
 uint16_t coilOffCount = 0; //Счетчик простоя катушки
 
@@ -107,7 +110,13 @@ uint8_t shiftIgnMassive[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                             203, 205, 206, 208, 209, 210, 212, 213, 214, 216, 217, 218, 220, 221,
                             222, 224, 225, 226, 228, 229, 230, 232, 233, 234, 236, 237, 238, 000};
 
-const uint8_t secPerMin = 60; // Seconds per minutes
+#ifndef TEST
+uint8_t current; //current sectorCount
+#endif
+
+uint16_t temp; //store current sectorCount if interrupt Tim2 occur
+uint8_t tempDiv10, tempDiv100, tempDiv1000; //Store digit of number
+//char buff[4];
 
 // Comment a function and leverage automatic documentation with slash star star
 /**

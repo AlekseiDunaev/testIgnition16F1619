@@ -54,8 +54,10 @@
 #include "interrupt_manager.h"
 #include "spi.h"
 #include "tmr2.h"
-#include "ccp1.h"
+
+#ifndef SOFT
 #include "screen.h"
+#endif
 
 #ifdef TEST
 #include "tmr1.h"

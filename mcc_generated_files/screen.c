@@ -6,10 +6,6 @@
  */
 
 #include "screen.h"
-#include "font.h"
-#include "pin_manager.h"
-#include "spi.h"
-#include "device_config.h"
 
 extern const font_type TimesNewRoman;
 
@@ -196,10 +192,11 @@ uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c) {
         return x+width;
 }
 
-
+/*
 void SCREEN_DrawString(uint16_t x, uint16_t y, char *str)
 {
     while(*str) {
         x = SCREEN_Putchar(x,y,*str++);
     }
 }
+*/

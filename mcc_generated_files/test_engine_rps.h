@@ -43,6 +43,11 @@
 
 // TODO Insert declarations
 
+#define STEPS 16
+#define msPerSecondTim1 0.000002 //ms per one tick Tim1
+#define maxTickTim1 65536
+#define fillTestEngineCycle 6 // part 1/fillTestEngineCycle of full cycle
+
 typedef struct {
     uint16_t tim1Count; // Count for one full rotate engine
     uint16_t ccp1Count; // Count for sheld in the Hall sensor
@@ -50,15 +55,15 @@ typedef struct {
 } EngineRecord;
 
 typedef struct {
-    EngineRecord ter[15];
+    EngineRecord ter[STEPS - 1];
 } EngineRecords;
 
 EngineRecords testEngineTable;
-EngineRecord current;
+uint8_t current;
 
-//void TEST_Engine_Initialize(EngineRecord er[], uint16_t minRPS, uint16_t maxRPS, uint16_t steps);
+
 void TEST_Engine_Initialize(uint16_t minRPS, uint16_t maxRPS);
-//void TEST_Engine_Initialize(void);
+
 // Comment a function and leverage automatic documentation with slash star star
 /**
     <p><b>Function prototype:</b></p>
