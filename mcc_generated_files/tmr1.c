@@ -57,17 +57,19 @@
 /**
   Section: Global Variables Definitions
  */
+
 volatile uint16_t timer1ReloadVal;
 void (*TMR1_InterruptHandler)(void);
 uint8_t step = 0;
-uint8_t repeat = 100;
+uint16_t repeat = 20;
 bool up = true;
 
 /**
   Section: TMR1 APIs
  */
 
-void TMR1_Initialize(void) {
+void TMR1_Initialize(void)
+{
     //Set the Timer to the options selected in the GUI
 
     //T1GSS T1G_pin; TMR1GE disabled; T1GTM disabled; T1GPOL low; T1GGO_nDONE done; T1GSPM disabled; 
@@ -80,7 +82,7 @@ void TMR1_Initialize(void) {
     TMR1L = 0x00;
 
     // Load the TMR value to reload variable
-    timer1ReloadVal = (uint16_t) ((TMR1H << 8) | TMR1L);
+    timer1ReloadVal=(uint16_t)((TMR1H << 8) | TMR1L);
 
     // Clearing IF flag before enabling the interrupt.
     PIR1bits.TMR1IF = 0;
@@ -119,14 +121,16 @@ uint16_t TMR1_ReadTimer(void) {
     readValLow = TMR1L;
     readValHigh = TMR1H;
 
-    readVal = ((uint16_t) readValHigh << 8) | readValLow;
+    readVal = ((uint16_t)readValHigh << 8) | readValLow;
 
     return readVal;
 }
 */
 
-void TMR1_WriteTimer(uint16_t timerVal) {
-    if (T1CONbits.nT1SYNC == 1) {
+void TMR1_WriteTimer(uint16_t timerVal)
+{
+    if (T1CONbits.nT1SYNC == 1)
+    {
         // Stop the Timer by writing to TMRxON bit
         T1CONbits.TMR1ON = 0;
 
@@ -135,8 +139,10 @@ void TMR1_WriteTimer(uint16_t timerVal) {
         TMR1L = timerVal;
 
         // Start the Timer after writing to the register
-        T1CONbits.TMR1ON = 1;
-    } else {
+        T1CONbits.TMR1ON =1;
+    }
+    else
+    {
         // Write to the Timer1 register
         TMR1H = (timerVal >> 8);
         TMR1L = timerVal;
@@ -165,7 +171,6 @@ void TMR1_ISR(void) {
 
     // Clear the TMR1 interrupt flag
     PIR1bits.TMR1IF = 0;
-    //TMR1_WriteTimer(timer1ReloadVal);
 
     if (TMR1_InterruptHandler) {
         TMR1_InterruptHandler();
@@ -184,19 +189,20 @@ void TMR1_DefaultInterruptHandler(void) {
 
     TMR1_WriteTimer(testEngineTable.ter[step].tim1Count);
     CCP1_SetCompareCount(testEngineTable.ter[step].ccp1Count);
-    current = testEngineTable.ter[step].RPS;
     
     if (repeat != 0) {
         repeat--;
     } else {
-        if (up && step < 14) {
+        uint8_t lastStep = step;
+        if (up && step < 16) {
             step++;
         } else if (!up && step > 0) {
             step--;
         } else {
             up = !up;
         }
-        repeat = 100;
+        //repeat = 100;
+        repeat = testEngineTable.ter[lastStep].cycles;
     }
 }
 

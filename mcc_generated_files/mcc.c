@@ -53,7 +53,7 @@ void SYSTEM_Initialize(void)
     OSCILLATOR_Initialize();
 #ifndef SOFT
     SPI_Initialize();
-    SCREEN_Initialize();
+    SCREEN_Initialize(3);
 #endif
     
     TMR2_Initialize();
@@ -61,7 +61,7 @@ void SYSTEM_Initialize(void)
 #ifdef TEST    
     TMR1_Initialize();
     CCP1_Initialize();
-    TEST_Engine_Initialize(10, 74);
+    TEST_Engine_Initialize(8, 80);
 #endif
 }
 

@@ -44,23 +44,22 @@
 // TODO Insert declarations
 
 #define STEPS 16
-#define msPerSecondTim1 0.000002 //ms per one tick Tim1
+#define msPerTickTim1 0.000002 //ms per one tick Tim1
 #define maxTickTim1 65536
 #define fillTestEngineCycle 6 // part 1/fillTestEngineCycle of full cycle
+#define TIME_OBSERVATION 5 // time observation for each cycle in emulation configuration
 
 typedef struct {
     uint16_t tim1Count; // Count for one full rotate engine
     uint16_t ccp1Count; // Count for sheld in the Hall sensor
-    uint8_t RPS; // Rotate per second
+    uint16_t cycles; // Pure count, until sub 0xFFFF 
 } EngineRecord;
 
 typedef struct {
-    EngineRecord ter[STEPS - 1];
+    EngineRecord ter[STEPS + 1];
 } EngineRecords;
 
 EngineRecords testEngineTable;
-uint8_t current;
-
 
 void TEST_Engine_Initialize(uint16_t minRPS, uint16_t maxRPS);
 

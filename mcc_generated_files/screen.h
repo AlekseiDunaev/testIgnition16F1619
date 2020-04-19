@@ -77,8 +77,8 @@
   Section: Macro Declarations
 */
 
-#define SCREEN_WIDTH       240
-#define SCREEN_HEIGHT      320
+//#define SCREEN_WIDTH       240
+//#define SCREEN_HEIGHT      320
 //#define SCREEN_PIXEL_COUNT	SCREEN_WIDTH * SCREEN_HEIGHT
 
 //Commands
@@ -117,7 +117,7 @@
   Section: SCREEN Module APIs
 */
 
-void SCREEN_Initialize(void);
+void SCREEN_Initialize(uint8_t orient);
 
 void SCREEN_SetCursorPosition(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 
@@ -125,11 +125,16 @@ void SCREEN_Fill(uint16_t color);
 
 void SCREEN_DrawPixel(uint16_t x, uint16_t y, uint16_t color);
 
-//void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
+void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
 
 uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c);
 
 void SCREEN_DrawString(uint16_t x, uint16_t y,char *str);
+
+void SCREEN_SetOrientation(uint8_t orient);
+
+
+extern uint16_t SCREEN_WIDTH, SCREEN_HEIGHT;
 
 #ifdef	__cplusplus
 extern "C" {

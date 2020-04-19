@@ -9,7 +9,7 @@
 
 extern const font_type TimesNewRoman;
 
-void SCREEN_Initialize() {
+void SCREEN_Initialize(uint8_t orient) {
     
   //SCREEN_RESET_SetHigh();
   SPI_ILI9341_SendCommand(ILI9341_RESET);
@@ -49,8 +49,11 @@ void SCREEN_Initialize() {
   SPI_ILI9341_SendData(0x28);
   SPI_ILI9341_SendCommand(ILI9341_VCOM2);
   SPI_ILI9341_SendData(0x86);
-  SPI_ILI9341_SendCommand(ILI9341_MAC);
-  SPI_ILI9341_SendData(0x48);
+  
+  SCREEN_SetOrientation(orient);
+  
+  //SPI_ILI9341_SendCommand(ILI9341_MAC);
+  //SPI_ILI9341_SendData(0x48);
   SPI_ILI9341_SendCommand(ILI9341_PIXEL_FORMAT);
   SPI_ILI9341_SendData(0x55);
   SPI_ILI9341_SendCommand(ILI9341_FRC);
@@ -113,7 +116,35 @@ void SCREEN_Initialize() {
   SPI_ILI9341_SendCommand(ILI9341_GRAM);
 }
 
+void SCREEN_SetOrientation(uint8_t orient)
+{
+	SPI_ILI9341_SendCommand(0x36);
+	switch (orient)
+	{
+		case 0: SPI_ILI9341_SendData(0x48);
+		break;
+		case 1: SPI_ILI9341_SendData(0x28);
+		break;
+		case 2: SPI_ILI9341_SendData(0x88);
+		break;
+		case 3: SPI_ILI9341_SendData(0xE8);
+		break;
+	}
+	if (orient == 0 || orient == 2)
+	{
+		SCREEN_WIDTH = 239;
+        SCREEN_HEIGHT = 319;
+	}
+	else
+	{
+		SCREEN_WIDTH = 319;
+		SCREEN_HEIGHT = 239;
+	}
+}
+
+
 void SCREEN_SetCursorPosition(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2) {
+    
 	SPI_ILI9341_SendCommand(ILI9341_COLUMN_ADDR);
 	SPI_ILI9341_SendData(x1 >> 8);
 	SPI_ILI9341_SendData(x1 & 0xFF);
@@ -132,11 +163,11 @@ void SCREEN_Fill(uint16_t color) {
 	uint8_t i, j;
 	i = color >> 8;
 	j = color & 0xFF;
-	SCREEN_SetCursorPosition(0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1);
+	SCREEN_SetCursorPosition(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     SPI_ILI9341_SendCommand(ILI9341_GRAM);
 
-	for (uint8_t n = 0; n < SCREEN_WIDTH; n++) {
-        for (uint16_t k = 0; k < SCREEN_HEIGHT; k++) {
+	for (uint16_t n = 0; n <= SCREEN_WIDTH; n++) {
+        for (uint16_t k = 0; k <= SCREEN_HEIGHT; k++) {
             SPI_ILI9341_SendData(i);
             SPI_ILI9341_SendData(j);
         }
@@ -152,7 +183,6 @@ void SCREEN_DrawPixel(uint16_t x, uint16_t y, uint16_t color) {
 
 }
 
-/*
 void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
     uint8_t i, j;
 	i = color >> 8;
@@ -166,13 +196,14 @@ void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t
 		SPI_ILI9341_SendData(j);
     }
 }
-*/
 
 uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c) {
         uint16_t i, j;
-        unsigned short Data;
+        //unsigned short Data;
+        uint16_t Data;
         
-        uint16_t offset = (c-48)*TimesNewRoman.height;
+        //uint16_t offset = (c-47)*TimesNewRoman.height;
+        uint16_t offset = c * TimesNewRoman.height;
         uint16_t width = TimesNewRoman.width;
         
     	for (i = 0; i < TimesNewRoman.height; i++) {

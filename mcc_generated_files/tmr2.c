@@ -75,8 +75,8 @@ void TMR2_Initialize(void)
     // T2RSEL T2IN; 
     T2RST = 0x00;
 
-    // T2PR 59; 
-    T2PR = 0x3B;
+    // T2PR 119; 
+    T2PR = 0x77;
 
     // TMR2 0; 
     T2TMR = 0x00;
@@ -232,7 +232,8 @@ void TMR2_DefaultInterruptHandler(void){
                 IGN_BLOCK_OUT_SetHigh();
             }
             //Сохраняем счетчик оборотов
-            lastSectionCount = sectorCount;
+            //lastSectionCount = sectorCount;
+            sectorCountContinued = 0;
             sectorCount = 0;
             //Обновляем сотояние нахождения шторки
             Flag.lastState = 1;
@@ -251,9 +252,11 @@ void TMR2_DefaultInterruptHandler(void){
             //Если счетчик переполнен, не проверяем его на момент искрообразования
             
             if (Flag.overflowCount) {
+                sectorCountContinued++;
                 return;
             } else {
                 sectorCount++; //Увеличиваем значение счетчика срабатывания таймера
+                sectorCountContinued++;
 
                 if (sectorCount >= 239) { //Проверяем счетчик на перполнение
                     Flag.overflowCount = 1;
@@ -287,9 +290,7 @@ void TMR2_DefaultInterruptHandler(void){
             //coilCount = shift;
         }
         sparkTime = shiftIgnMassive[(uint8_t)sectorCount];
-#ifndef TEST
-        current = sectorCount;
-#endif
+        current = sectorCountContinued;
         return;
     } else {
         //Шторка по прежнему вне сенсора

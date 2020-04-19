@@ -46,7 +46,8 @@
 /*
  Global variable 
 */
-
+uint16_t SCREEN_WIDTH = 0, SCREEN_HEIGHT = 0;
+uint16_t color;
 
  // TODO Insert declarations
 /*
@@ -141,29 +142,34 @@ void main(void) {
         }
         
 #ifndef SOFT
-#ifdef TEST
-        temp = current * SEC_PER_MIN;
-        tempDiv10 = temp / 10;
-        tempDiv100 = temp / 100;
-        tempDiv1000 = temp / 1000;
-        SCREEN_Putchar(90, 10, tempDiv1000);
-        SCREEN_Putchar(105, 10, tempDiv100 - 10*(tempDiv1000));
-        SCREEN_Putchar(120, 10, tempDiv10 - 10*(tempDiv100));
-        SCREEN_Putchar(135, 10, temp - 10*(tempDiv10));
-        //sprintf(buff, "%4d", current * SEC_PER_MIN);
-        //SCREEN_DrawString(90, 10, buff);
-#else
-        temp = current * RPM_COEFFICIENT;
-        tempDiv10 = temp / 10;
-        tempDiv100 = temp / 100;
-        tempDiv1000 = temp / 1000;
-        SCREEN_Putchar(90, 10, tempDiv1000);
-        SCREEN_Putchar(105, 10, tempDiv100 - 10*(tempDiv1000));
-        SCREEN_Putchar(120, 10, tempDiv10 - 10*(tempDiv100));
-        SCREEN_Putchar(135, 10, temp - 10*(tempDiv10));
-        //sprintf(buff, "%4d", current * RPM_COEFFICIENT);
-        //SCREEN_DrawString(90, 10, buff);
-#endif
+        
+        tempSectorCountContinued = current;
+        tempRPM = 10 * (RPM_COEFFICIENT / current);
+        
+        tempDiv10 = tempRPM / 10;
+        tempDiv100 = tempRPM / 100;
+        tempDiv1000 = tempRPM / 1000;
+        SCREEN_Putchar(90, 100, tempDiv1000);
+        SCREEN_Putchar(107, 100, tempDiv100 - 10*(tempDiv1000));
+        SCREEN_Putchar(124, 100, tempDiv10 - 10*(tempDiv100));
+        SCREEN_Putchar(141, 100, tempRPM - 10*(tempDiv10));
+       
+        SCREEN_DrawBox(tempDiv100 * 5, 150, SCREEN_WIDTH, 200, 0x0000);
+        if (tempDiv100 > 30) {
+            color = 0xF800;
+        } else {
+            color = 0xFFFF;
+        }
+        SCREEN_DrawBox(20 , 150, tempDiv100 * 5 , 200, color);
+        
+        tempDiv10 = tempSectorCountContinued / 10;
+        tempDiv100 = tempSectorCountContinued / 100;
+        SCREEN_Putchar(90, 122, tempDiv100);
+        SCREEN_Putchar(107, 122, tempDiv10 - 10*(tempDiv100));
+        SCREEN_Putchar(124, 122, tempSectorCountContinued - 10*(tempDiv10));
+        
+        //sprintf(buff, "%4d", temp);
+        //SCREEN_DrawString(100, 100, buff);
 #endif
     }       
 }
