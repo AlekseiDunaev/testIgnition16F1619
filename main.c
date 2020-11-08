@@ -65,11 +65,7 @@ void main(void) {
     Port.FUNC1 = FUNC1_IN_GetValue();
     //Port.FUNC2 = FUNC2_IN_GetValue();
          
-    if (Port.FUNC1) {
-        Flag.engineStop = 1;    
-    } else {
-        Flag.engineStop = 0;
-    }
+    if (Port.FUNC1) Flag.engineStop = 1;
     
     if (HALL_INPUT_GetValue()) {
        LED_SHADOW_SetHigh();
@@ -143,33 +139,42 @@ void main(void) {
         
 #ifndef SOFT
         
-        tempSectorCountContinued = current;
-        tempRPM = 10 * (RPM_COEFFICIENT / current);
-        
-        tempDiv10 = tempRPM / 10;
-        tempDiv100 = tempRPM / 100;
-        tempDiv1000 = tempRPM / 1000;
-        SCREEN_Putchar(90, 100, tempDiv1000);
-        SCREEN_Putchar(107, 100, tempDiv100 - 10*(tempDiv1000));
-        SCREEN_Putchar(124, 100, tempDiv10 - 10*(tempDiv100));
-        SCREEN_Putchar(141, 100, tempRPM - 10*(tempDiv10));
-       
-        SCREEN_DrawBox(tempDiv100 * 5, 150, SCREEN_WIDTH, 200, 0x0000);
-        if (tempDiv100 > 30) {
+        //tempSectorCountContinued = currentSectorCount;
+        RPM = 10 * (RPM_COEFFICIENT / currentSectorCount);
+        RPMDiv10 = RPM / 10;
+        bars = RPMDiv100 = RPM / 100;
+        RPMDiv1000 = RPM / 1000;
+        if (RPMDiv100 > 30) {
             color = 0xF800;
         } else {
             color = 0xFFFF;
         }
-        SCREEN_DrawBox(20 , 150, tempDiv100 * 5 , 200, color);
+        SCREEN_Putchar(90, 100, RPMDiv1000, color, 0x0000);
+        //SCREEN_Putchar(90, 100, RPMDiv1000, color, 0x0000);
+        SCREEN_Putchar(107, 100, RPMDiv100 - 10*(RPMDiv1000), color, 0x0000);
+        //SCREEN_Putchar(107, 100, RPMDiv100%10, color, 0x0000);
+        SCREEN_Putchar(124, 100, RPMDiv10 - 10*(RPMDiv100), color, 0x0000);
+        //SCREEN_Putchar(124, 100, RPMDiv10%10, color, 0x0000);
+        SCREEN_Putchar(141, 100, RPM - 10*(RPMDiv10), color, 0x0000);
+        //SCREEN_Putchar(141, 100, RPM%10, color, 0x0000);
+        barsPaint = bars - lastBars;
+        stepTo = barsPaint * LENGHT_BAR;
+        lenghtLastBar = lastBars * LENGHT_BAR;
+        direction = 1;
         
-        tempDiv10 = tempSectorCountContinued / 10;
-        tempDiv100 = tempSectorCountContinued / 100;
-        SCREEN_Putchar(90, 122, tempDiv100);
-        SCREEN_Putchar(107, 122, tempDiv10 - 10*(tempDiv100));
-        SCREEN_Putchar(124, 122, tempSectorCountContinued - 10*(tempDiv10));
+        if (barsPaint < 0) {
+            stepTo = -stepTo;
+            color = 0x0000;
+            direction = -1;
+        }
         
-        //sprintf(buff, "%4d", temp);
-        //SCREEN_DrawString(100, 100, buff);
+        for (int16_t i = 0; i < stepTo; i++) {
+            uint16_t next = lenghtLastBar + (i * direction);
+            SCREEN_DrawBox(next, UPPER_BAR_CORNER, next + 1 , LOWER_BAR_CORNER, color);    
+        }
+
+        lastBars = bars;
+
 #endif
     }       
 }
