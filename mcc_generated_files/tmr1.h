@@ -53,7 +53,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "test_engine_rps.h"
+#include "test_engine_rpm.h"
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 

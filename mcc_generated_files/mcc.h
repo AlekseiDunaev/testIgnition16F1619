@@ -62,7 +62,7 @@
 #ifdef TEST
 #include "tmr1.h"
 #include "ccp1.h"
-#include "test_engine_rps.h"
+#include "test_engine_rpm.h"
 #endif
 /**
  * @Param
