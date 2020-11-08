@@ -197,7 +197,7 @@ void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t
     }
 }
 
-uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c) {
+uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c, uint16_t foreground, uint16_t background) {
         uint16_t i, j;
         //unsigned short Data;
         uint16_t Data;
@@ -213,9 +213,9 @@ uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c) {
             
             for (j = 0; j < width; j++) {
                 if ((Data << j) & 0x8000) {
-                    SCREEN_DrawPixel(x + j, (y + i), 0xFFFF);  //white
+                    SCREEN_DrawPixel(x + j, (y + i), foreground);  //white
                 } else {
-                    SCREEN_DrawPixel(x + j, (y + i), 0x0000);  //black
+                    SCREEN_DrawPixel(x + j, (y + i), background);  //black
                 }
             }
         }
@@ -223,11 +223,9 @@ uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c) {
         return x+width;
 }
 
-/*
-void SCREEN_DrawString(uint16_t x, uint16_t y, char *str)
+/*void SCREEN_DrawString(uint16_t x, uint16_t y, char *str, uint16_t foreground, uint16_t background)
 {
     while(*str) {
-        x = SCREEN_Putchar(x,y,*str++);
+        x = SCREEN_Putchar(x,y,*str++, foregraund, background);
     }
-}
-*/
+}*/

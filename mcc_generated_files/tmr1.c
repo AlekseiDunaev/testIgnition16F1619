@@ -194,7 +194,7 @@ void TMR1_DefaultInterruptHandler(void) {
         repeat--;
     } else {
         uint8_t lastStep = step;
-        if (up && step < 16) {
+        if (up && step < STEPS) {
             step++;
         } else if (!up && step > 0) {
             step--;

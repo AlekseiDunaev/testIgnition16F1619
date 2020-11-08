@@ -290,7 +290,7 @@ void TMR2_DefaultInterruptHandler(void){
             //coilCount = shift;
         }
         sparkTime = shiftIgnMassive[(uint8_t)sectorCount];
-        current = sectorCountContinued;
+        currentSectorCount = sectorCountContinued;
         return;
     } else {
         //Шторка по прежнему вне сенсора

@@ -37,6 +37,10 @@
 #define COUNT_BUTTON_ENOUGHT 255
 #define COUNT_HALL_ENOUGHT 4
 
+#define LENGHT_BAR 7 //Lenght bar on screen
+#define UPPER_BAR_CORNER 150
+#define LOWER_BAR_CORNER 250
+
 //#include <stdio.h>
 
 #ifdef TEST
@@ -112,11 +116,18 @@ uint8_t shiftIgnMassive[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                             203, 205, 206, 208, 209, 210, 212, 213, 214, 216, 217, 218, 220, 221,
                             222, 224, 225, 226, 228, 229, 230, 232, 233, 234, 236, 237, 238, 000};
 
-uint16_t current; //current sectorCount
-uint16_t tempRPM; //store current sectorCountContinued if interrupt Tim2 occur for screen RPM
+uint16_t currentSectorCount; //current sectorCount
+uint8_t  bars = 0; // bars counts
+uint8_t  lastBars = 0; // last bars count
+int8_t  barsPaint; // count bars paint
+const uint8_t lenghtBar = 7; // length pixel bar   
+uint16_t RPM; //store current sectorCountContinued if interrupt Tim2 occur for screen RPM
 uint16_t tempSectorCountContinued; //store current sectorCountContinued if interrupt Tim2 occur for screen sectorCountContinued
-uint8_t tempDiv10, tempDiv100, tempDiv1000; //Store digit of number
-//char buff[4];
+uint8_t RPMDiv10, RPMDiv100, RPMDiv1000; //Store digit of number
+int16_t stepTo; //numbers of bars paint
+uint16_t lenghtLastBar; //position of last bar;
+int8_t direction = 1; //direction growing bars
+
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
