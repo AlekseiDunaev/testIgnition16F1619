@@ -65,17 +65,17 @@ void main(void) {
     Port.FUNC1 = FUNC1_IN_GetValue();
     //Port.FUNC2 = FUNC2_IN_GetValue();
          
-    if (Port.FUNC1) Flag.engineStop = 1;
+    if (Port.FUNC1) Flag.engineStop = true;
     
     if (HALL_INPUT_GetValue()) {
        LED_SHADOW_SetHigh();
-       Flag.lastState = 1;
+       Flag.lastState = true;
        if (!Flag.engineStop) {
         IGN_BLOCK_OUT_SetHigh();
        }
     } else {
         LED_SHADOW_SetLow();
-        Flag.lastState = 0;
+        Flag.lastState = false;
         IGN_BLOCK_OUT_SetLow();
     }
 

@@ -42,6 +42,7 @@
 #define LOWER_BAR_CORNER 250
 
 //#include <stdio.h>
+#include <stdbool.h>
 
 #ifdef TEST
 #include "mcc_generated_files/test_engine_rpm.h"
@@ -56,14 +57,14 @@
 typedef union {
     unsigned char all;
     struct {
-        unsigned SENS           :1; //Hall sense state
-        unsigned NOTDEF1        :1; //Nodef1
-        unsigned NOTDEF2        :1; //Nodef2
-        unsigned NOTDEF3        :1; //Nodef3
-        unsigned SELECT1        :1; //Select table ignition #1
-        unsigned SELECT2        :1; //Select table ignition #2
-        unsigned FUNC1          :1; //Engine stop
-        unsigned FUNC2          :1; //Warm spark
+        bool SENS           :1; //Hall sense state
+        bool NOTDEF1        :1; //Nodef1
+        bool NOTDEF2        :1; //Nodef2
+        bool NOTDEF3        :1; //Nodef3
+        bool SELECT1        :1; //Select table ignition #1
+        bool SELECT2        :1; //Select table ignition #2
+        bool FUNC1          :1; //Engine stop
+        bool FUNC2          :1; //Warm spark
     };
 } STATE_TOGGLE_t;
 
@@ -73,14 +74,14 @@ STATE_TOGGLE_t Port = {0x00};
 typedef union {
     unsigned char all;
     struct {
-        unsigned lastState      :1; //Last state Hall sensor
-        unsigned overflowCount  :1; //Overflow count
-        unsigned coilOff        :1; //Coil disable when engine not work
-        unsigned engineStop     :1; //Disable engine
-        unsigned overrun1       :1; //Enable limit overrun FUNC1
-        unsigned overrun2       :1; //Enable limit overrun FUNC2
-        unsigned NOTDEF1        :1; //Nodef1
-        unsigned NOTDEF2        :1; //Nodef2
+        bool lastState      :1; //Last state Hall sensor
+        bool overflowCount  :1; //Overflow count
+        bool coilOff        :1; //Coil disable when engine not work
+        bool engineStop     :1; //Disable engine
+        bool overrun1       :1; //Enable limit overrun FUNC1
+        bool overrun2       :1; //Enable limit overrun FUNC2
+        bool NOTDEF1        :1; //Nodef1
+        bool NOTDEF2        :1; //Nodef2
     };
 } FLAG_t;
 

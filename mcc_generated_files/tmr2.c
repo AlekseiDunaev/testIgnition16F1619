@@ -236,13 +236,13 @@ void TMR2_DefaultInterruptHandler(void){
             sectorCountContinued = 0;
             sectorCount = 0;
             //Обновляем сотояние нахождения шторки
-            Flag.lastState = 1;
+            Flag.lastState = true;
             //Сбрасываем флаг переполнения
-            Flag.overflowCount = 0;
+            Flag.overflowCount = false;
             //Обнуляем счетчик отключения катушки
             coilOffCount &= 0x0F;
             //Снимаем флаг отключения катушки. Двигатель работает.
-            Flag.coilOff = 0;
+            Flag.coilOff = false;
             return;
 
         } else {
@@ -259,7 +259,7 @@ void TMR2_DefaultInterruptHandler(void){
                 sectorCountContinued++;
 
                 if (sectorCount >= 239) { //Проверяем счетчик на перполнение
-                    Flag.overflowCount = 1;
+                    Flag.overflowCount = true;
                 }
 
                 if (!sparkTime) { //Проверяем счетчик на момент искрообразования, если он не равен нулю (т.е. при запуске))
@@ -276,7 +276,7 @@ void TMR2_DefaultInterruptHandler(void){
     } else if (Flag.lastState) {
         //Шторка вышла из сенсора
         IGN_BLOCK_OUT_SetLow(); //Инициализируем искру, если этого еще не произошло (запуск).
-        Flag.lastState = 0;
+        Flag.lastState = false;
         coilCount = 0;
 
         if (sparkTime == 0) {
