@@ -5,6 +5,8 @@
  * Created on November 16, 2019, 5:28 PM
  */
 
+#ifndef SOFT
+
 #include "screen.h"
 
 extern const font_type TimesNewRoman;
@@ -229,3 +231,5 @@ uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c, uint16_t foreground, uin
         x = SCREEN_Putchar(x,y,*str++, foregraund, background);
     }
 }*/
+
+#endif

@@ -49,6 +49,8 @@
   Section: Included Files
 */
 
+#ifndef SOFT
+
 #include <xc.h>
 #include "spi.h"
 #include "pin_manager.h"
@@ -166,6 +168,9 @@ void SPI_ILI9341_SendData(uint8_t data) {
     SPI_Exchange8bit(data);
     SPI_CS_SetHigh();
 }
+
+#endif
+
 /**
  End of File
 */

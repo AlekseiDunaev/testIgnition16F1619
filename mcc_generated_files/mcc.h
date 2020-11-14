@@ -52,10 +52,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "interrupt_manager.h"
-#include "spi.h"
 #include "tmr2.h"
 
 #ifndef SOFT
+#include "spi.h"
 #include "screen.h"
 #endif
 

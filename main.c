@@ -150,13 +150,9 @@ void main(void) {
             color = 0xFFFF;
         }
         SCREEN_Putchar(90, 100, RPMDiv1000, color, 0x0000);
-        //SCREEN_Putchar(90, 100, RPMDiv1000, color, 0x0000);
         SCREEN_Putchar(107, 100, RPMDiv100 - 10*(RPMDiv1000), color, 0x0000);
-        //SCREEN_Putchar(107, 100, RPMDiv100%10, color, 0x0000);
         SCREEN_Putchar(124, 100, RPMDiv10 - 10*(RPMDiv100), color, 0x0000);
-        //SCREEN_Putchar(124, 100, RPMDiv10%10, color, 0x0000);
         SCREEN_Putchar(141, 100, RPM - 10*(RPMDiv10), color, 0x0000);
-        //SCREEN_Putchar(141, 100, RPM%10, color, 0x0000);
         barsPaint = bars - lastBars;
         stepTo = barsPaint * LENGHT_BAR;
         lenghtLastBar = lastBars * LENGHT_BAR;
