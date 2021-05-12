@@ -10,9 +10,9 @@ CND_CONF=soft
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/testIgnition16F1619.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=testIgnition16F1619.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=testignition16f1619.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/testIgnition16F1619.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=testIgnition16F1619.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=testignition16f1619/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/testignition16f1619.x/bin
+makeDirectory ${TMPDIR}/testignition16f1619/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/testignition16f1619.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/testignition16f1619.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/testignition16f1619.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/testignition16f1619.tar *
 checkReturnCode
 
 # Cleanup

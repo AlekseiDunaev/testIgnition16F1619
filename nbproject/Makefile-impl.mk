@@ -24,10 +24,10 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=testIgnition16F1619.X
+PROJECTNAME=testIgnition16F1619
 
 # Active Configuration
-DEFAULTCONF=soft
+DEFAULTCONF=hard
 CONF=${DEFAULTCONF}
 
 # All Configurations

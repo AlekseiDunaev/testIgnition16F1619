@@ -61,7 +61,7 @@ void SYSTEM_Initialize(void)
 #ifdef TEST    
     TMR1_Initialize();
     CCP1_Initialize();
-    TEST_Engine_Initialize(8, 80);
+    TEST_Engine_Initialize(8, 40);
 #endif
 }
 
