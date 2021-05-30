@@ -240,7 +240,8 @@ void TMR2_DefaultInterruptHandler(void){
             //Сбрасываем флаг переполнения
             Flag.overflowCount = false;
             //Обнуляем счетчик отключения катушки
-            coilOffCount &= 0x0F;
+            //Нигде не используется
+            //coilOffCount &= 0x0F;
             //Снимаем флаг отключения катушки. Двигатель работает.
             Flag.coilOff = false;
             return;
@@ -262,7 +263,7 @@ void TMR2_DefaultInterruptHandler(void){
                     Flag.overflowCount = true;
                 }
 
-                if (!sparkTime) { //Проверяем счетчик на момент искрообразования, если он не равен нулю (т.е. при запуске))
+                if (!sparkTime) { //Проверяем счетчик на момент искрообразования, если он равен нулю (т.е. при запуске))
                     return; //Происходит запуск, искра будет образована при выходе шторки из датчика
                 }
 
@@ -281,13 +282,9 @@ void TMR2_DefaultInterruptHandler(void){
 
         if (sparkTime == 0) {
             coilCount = sectorCount + 239;
-            //shift = sectorCount + 239;
-            //coilCount = shift;
         }
         else {
             coilCount = sectorCount + sparkTime;
-            //shift = sectorCount + sparkTime;
-            //coilCount = shift;
         }
         sparkTime = shiftIgnMassive[(uint8_t)sectorCount];
         currentSectorCount = sectorCountContinued;
