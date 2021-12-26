@@ -48,6 +48,7 @@
 */
 uint16_t SCREEN_WIDTH = 0, SCREEN_HEIGHT = 0;
 uint16_t color;
+char RPMtoStr[4];
 
  // TODO Insert declarations
 /*
@@ -57,8 +58,13 @@ uint16_t color;
 void main(void) {
     // initialize the device
     SYSTEM_Initialize();
-        
-    //countSELECT1 = countSELECT2 = countFUNC1 = countFUNC2 = countHALL = 0;
+    
+    //Это может быть опасным?
+    //Если по каким то причинам катушка была по каким то причинам под напряжением перед этим, то проскочит искра. И если в цилиндре будет смесь, то произойдет рабочий ход.
+    //Нужно проверить в каком состоянии находится катушка при запуске системы.
+    IGN_BLOCK_OUT_SetLow();
+    LED_SHADOW_SetLow();
+    Flag.lastState = false;
     
     Port.SELECT1 = SELECT1_IN_GetValue();
     Port.SELECT2 = SELECT2_IN_GetValue();
@@ -73,10 +79,6 @@ void main(void) {
        if (!Flag.engineStop) {
         IGN_BLOCK_OUT_SetHigh();
        }
-    } else {
-        LED_SHADOW_SetLow();
-        Flag.lastState = false;
-        IGN_BLOCK_OUT_SetLow();
     }
 
 #ifndef SOFT
@@ -97,7 +99,6 @@ void main(void) {
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-
     
     while (1) {
 
@@ -137,39 +138,48 @@ void main(void) {
             countFUNC2 = 0;
         }
         
-#ifndef SOFT
+        if (currentSectorCount) {
+            sprintf(RPMtoStr, "%d", RPM = 10 * (RPM_COEFFICIENT / currentSectorCount)); 
+        }
+        else {
+            sprintf(RPMtoStr, "%d", 0);
+        }
         
-        //tempSectorCountContinued = currentSectorCount;
-        RPM = 10 * (RPM_COEFFICIENT / currentSectorCount);
-        RPMDiv10 = RPM / 10;
-        bars = RPMDiv100 = RPM / 100;
-        RPMDiv1000 = RPM / 1000;
-        if (RPMDiv100 > 30) {
+        uint16_t RPMDiv1000 = 1;
+        
+        //RPM = 10 * (RPM_COEFFICIENT / currentSectorCount);
+        //RPMDiv10 = RPM / 10;
+        //bars = RPMDiv100 = RPM / 100;
+        barsPaint = coefficientLenghtBar * (RPM / 100);
+        //RPMDiv1000 = RPM / 1000;
+        if (barsPaint > RPMDangerosLenghtBar) {
             color = 0xF800;
         } else {
             color = 0xFFFF;
         }
-        SCREEN_Putchar(90, 100, RPMDiv1000, color, 0x0000);
-        SCREEN_Putchar(107, 100, RPMDiv100 - 10*(RPMDiv1000), color, 0x0000);
-        SCREEN_Putchar(124, 100, RPMDiv10 - 10*(RPMDiv100), color, 0x0000);
-        SCREEN_Putchar(141, 100, RPM - 10*(RPMDiv10), color, 0x0000);
-        barsPaint = bars - lastBars;
-        stepTo = barsPaint * LENGHT_BAR;
-        lenghtLastBar = lastBars * LENGHT_BAR;
-        direction = 1;
+
+  #ifndef SOFT      
+
+        SCREEN_DrawString(90, 120, 5, 0, RPMtoStr, color, 0x0000 );
         
-        if (barsPaint < 0) {
-            stepTo = -stepTo;
+        //barsPaint = bars - lastBars;
+        //stepTo = barsPaint * LENGHT_BAR;
+        //lastBarPaint = (uint16_t)(lastBars) * LENGHT_BAR;
+        
+        if ((barsPaint - lastBarsPaint) < 0) {
+            //stepTo = -stepTo;
             color = 0x0000;
             direction = -1;
+        } else {
+            direction = 1;
         }
         
-        for (int16_t i = 0; i < stepTo; i++) {
-            uint16_t next = lenghtLastBar + (i * direction);
+        for (int16_t i = 0; i < barsPaint; i++) {
+            uint16_t next = (uint16_t)(lastBarsPaint + (i * direction));
             SCREEN_DrawBox(next, UPPER_BAR_CORNER, next + 1 , LOWER_BAR_CORNER, color);    
         }
 
-        lastBars = bars;
+        lastBarsPaint = barsPaint;
 
 #endif
     }       

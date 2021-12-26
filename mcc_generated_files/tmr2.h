@@ -53,7 +53,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "../main.h"
+#include "../global.h"
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 

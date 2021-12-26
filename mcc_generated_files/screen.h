@@ -129,7 +129,7 @@ void SCREEN_DrawBox(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t
 
 uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c, uint16_t foreground, uint16_t background);
 
-void SCREEN_DrawString(uint16_t x, uint16_t y,char *str);
+void SCREEN_DrawString(uint16_t x, uint16_t y, uint16_t step_x, uint16_t step_y, char *str, uint16_t foreground, uint16_t background);
 
 void SCREEN_SetOrientation(uint8_t orient);
 

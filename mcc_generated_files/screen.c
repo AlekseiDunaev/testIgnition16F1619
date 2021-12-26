@@ -204,14 +204,12 @@ uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c, uint16_t foreground, uin
         //unsigned short Data;
         uint16_t Data;
         
-        //uint16_t offset = (c-47)*TimesNewRoman.height;
-        uint16_t offset = c * TimesNewRoman.height;
+        uint16_t offset = (c-48)*TimesNewRoman.height;
+        //uint16_t offset = c * TimesNewRoman.height;
         uint16_t width = TimesNewRoman.width;
         
     	for (i = 0; i < TimesNewRoman.height; i++) {
-
-            Data = TimesNewRoman.data_table[offset+i];    
-            
+            Data = TimesNewRoman.data_table[offset+i];        
             
             for (j = 0; j < width; j++) {
                 if ((Data << j) & 0x8000) {
@@ -225,11 +223,13 @@ uint16_t SCREEN_Putchar(uint16_t x, uint16_t y, char c, uint16_t foreground, uin
         return x+width;
 }
 
-/*void SCREEN_DrawString(uint16_t x, uint16_t y, char *str, uint16_t foreground, uint16_t background)
+void SCREEN_DrawString(uint16_t x, uint16_t y, uint16_t step_x, uint16_t step_y, char *str, uint16_t foreground, uint16_t background)
 {
     while(*str) {
-        x = SCREEN_Putchar(x,y,*str++, foregraund, background);
+        x = SCREEN_Putchar(x, y, *str++, foreground, background);
+        x += step_x;
+        y += step_y;
     }
-}*/
+}
 
 #endif

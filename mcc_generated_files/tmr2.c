@@ -207,7 +207,7 @@ void TMR2_SetInterruptHandler(void (* InterruptHandler)(void)){
 void TMR2_DefaultInterruptHandler(void){
     // add your TMR2 interrupt custom code
     // or set custom function using TMR2_SetInterruptHandler()
-    DEBUG_INT_TIM2_Toggle();
+    //DEBUG_INT_TIM2_Toggle();
 
     if (HALL_INPUT_GetValue() != Port.SENS) {
         if ((++countHALL) == COUNT_HALL_ENOUGHT) {

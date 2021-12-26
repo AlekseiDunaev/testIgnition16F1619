@@ -37,11 +37,12 @@
 #define COUNT_BUTTON_ENOUGHT 255
 #define COUNT_HALL_ENOUGHT 4
 
-#define LENGHT_BAR 7 //Lenght bar on screen
+#define LENGHT_BAR 4 //Lenght bar on screen
 #define UPPER_BAR_CORNER 150
 #define LOWER_BAR_CORNER 250
 
-//#include <stdio.h>
+#include <stdio.h>
+//#include <stdlib.h>
 #include <stdbool.h>
 
 #ifdef TEST
@@ -97,7 +98,8 @@ uint8_t lastSectionCount = 0; //Последнее значение счетчи
 uint16_t sectorCountContinued = 0; //Значение фактического числа отсчетов таймера при проходе шторки через датчик Холла
 uint8_t sparkTime = 0; //Кол-во отсчетов после которого происходит включение катушки при нахождении шторки в датчике Холла
 uint16_t coilCount = 0; //Счетчик включения катушки
-uint16_t coilOffCount = 0; //Счетчик простоя катушки
+//Нигде не используется
+//uint16_t coilOffCount = 0; //Счетчик простоя катушки
 
 // Table shift ignition
 uint8_t shiftIgnMassive[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -118,17 +120,19 @@ uint8_t shiftIgnMassive[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                             222, 224, 225, 226, 228, 229, 230, 232, 233, 234, 236, 237, 238, 000};
 
 uint16_t currentSectorCount; //current sectorCount
-uint8_t  bars = 0; // bars counts
-uint8_t  lastBars = 0; // last bars count
-int8_t  barsPaint; // count bars paint
-const uint8_t lenghtBar = 7; // length pixel bar   
+//int16_t  bars = 0; // bars counts
+//int16_t  lastBars = 0; // last bars count
+int16_t  barsPaint; // count bars paint
+int16_t lastBarsPaint; // count last bars paint
+const int16_t coefficientLenghtBar = 4; // length pixel bar
+const int16_t RPMDangeros = 30; // RPM/100 when RPM upper will be dangeros
+const int16_t RPMDangerosLenghtBar = coefficientLenghtBar * RPMDangeros;
 uint16_t RPM; //store current sectorCountContinued if interrupt Tim2 occur for screen RPM
 uint16_t tempSectorCountContinued; //store current sectorCountContinued if interrupt Tim2 occur for screen sectorCountContinued
-uint8_t RPMDiv10, RPMDiv100, RPMDiv1000; //Store digit of number
-int16_t stepTo; //numbers of bars paint
-uint16_t lenghtLastBar; //position of last bar;
+//uint16_t RPMDiv10, RPMDiv100, RPMDiv1000; //Store digit of number
+//int16_t stepTo; //numbers of bars paint
+//uint16_t lenghtLastBar; //position of last bar;
 int8_t direction = 1; //direction growing bars
-
 
 // Comment a function and leverage automatic documentation with slash star star
 /**
