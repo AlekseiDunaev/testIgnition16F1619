@@ -46,9 +46,8 @@
 /*
  Global variable 
 */
-uint16_t SCREEN_WIDTH = 0, SCREEN_HEIGHT = 0;
 uint16_t color;
-char RPMtoStr[4];
+//char RPMtoStr[] = {'0', '0', '0', '0', '\0'};
 
  // TODO Insert declarations
 /*
@@ -138,20 +137,18 @@ void main(void) {
             countFUNC2 = 0;
         }
         
-        if (currentSectorCount) {
-            sprintf(RPMtoStr, "%d", RPM = 10 * (RPM_COEFFICIENT / currentSectorCount)); 
+        if (paint) {
+            RPM_BCD = toPackedBcd(RPM = (RPM_COEFFICIENT / currentSectorCount) * 10);
+            //atoi_project(RPM = 10 * (RPM_COEFFICIENT / currentSectorCount), RPMtoStr);
         }
         else {
-            sprintf(RPMtoStr, "%d", 0);
+            RPM_BCD = 0;
+            //atoi_project(RPM = 0, RPMtoStr);
         }
         
-        uint16_t RPMDiv1000 = 1;
+        paint = false;
         
-        //RPM = 10 * (RPM_COEFFICIENT / currentSectorCount);
-        //RPMDiv10 = RPM / 10;
-        //bars = RPMDiv100 = RPM / 100;
         barsPaint = coefficientLenghtBar * (RPM / 100);
-        //RPMDiv1000 = RPM / 1000;
         if (barsPaint > RPMDangerosLenghtBar) {
             color = 0xF800;
         } else {
@@ -160,22 +157,23 @@ void main(void) {
 
   #ifndef SOFT      
 
-        SCREEN_DrawString(90, 120, 5, 0, RPMtoStr, color, 0x0000 );
+        SCREEN_Putchar(90, 80, (uint8_t)(RPM_BCD>>12) + '0', color, 0x0000);
+        SCREEN_Putchar(104, 80, (uint8_t)((RPM_BCD & 0x0F00)>>8) + '0', color, 0x0000);
+        SCREEN_Putchar(118, 80, (uint8_t)((RPM_BCD & 0x00F0)>>4) + '0', color, 0x0000);
+        SCREEN_Putchar(132, 80, (uint8_t)(RPM_BCD & 0x000F) + '0', color, 0x0000);
         
-        //barsPaint = bars - lastBars;
-        //stepTo = barsPaint * LENGHT_BAR;
-        //lastBarPaint = (uint16_t)(lastBars) * LENGHT_BAR;
+        int16_t diffBars = barsPaint - lastBarsPaint;
         
-        if ((barsPaint - lastBarsPaint) < 0) {
-            //stepTo = -stepTo;
+        direction = 1;
+        
+        if (diffBars < 0) {
             color = 0x0000;
+            diffBars *= -1;
             direction = -1;
-        } else {
-            direction = 1;
         }
         
-        for (int16_t i = 0; i < barsPaint; i++) {
-            uint16_t next = (uint16_t)(lastBarsPaint + (i * direction));
+        for (int16_t i = 0; i < diffBars; i++) {
+            uint16_t next = (uint16_t)(lastBarsPaint +(direction * i));
             SCREEN_DrawBox(next, UPPER_BAR_CORNER, next + 1 , LOWER_BAR_CORNER, color);    
         }
 
